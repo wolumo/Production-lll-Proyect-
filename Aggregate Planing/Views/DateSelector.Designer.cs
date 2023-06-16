@@ -153,6 +153,7 @@
             this.btnDone.TabIndex = 0;
             this.btnDone.Text = "Aceptar";
             this.btnDone.UseVisualStyleBackColor = true;
+            this.btnDone.Click += new System.EventHandler(this.btnDone_Click);
             // 
             // panel2
             // 

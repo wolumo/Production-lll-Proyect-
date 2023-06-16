@@ -41,5 +41,16 @@ namespace Aggregate_Planing.Views
         {
 
         }
+
+        private void btnDone_Click(object sender, EventArgs e)
+        {
+            int InitialMonth = cmbFrom.SelectedIndex;
+            int FinalMonth = cmbTo.SelectedIndex;
+            PlaningGenerate planing = new PlaningGenerate(InitialMonth, FinalMonth);
+            planing.Show();
+            this.Close();
+        }
+
+        
     }
 }
