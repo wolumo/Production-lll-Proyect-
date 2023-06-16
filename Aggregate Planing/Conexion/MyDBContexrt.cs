@@ -22,6 +22,10 @@ namespace Aggregate_Planing.Conexion
         public virtual DbSet<AgreggationPlan> AgreggationPlans { get; set; }
         public virtual DbSet<Month> Months { get; set; }
 
+
+
+        public virtual DbSet<AgreggationDetail> AgreggationDetails { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
@@ -30,6 +34,7 @@ namespace Aggregate_Planing.Conexion
                 optionsBuilder.UseSqlServer("Server=.;Database=Planing;user=sa;Password=1234;TrustServerCertificate=True;");
             }
         }
+        
     }
 
    
