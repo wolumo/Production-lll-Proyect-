@@ -1,3 +1,6 @@
+
+using Aggregate_Planing.Views;
+
 namespace Aggregate_Planing
 {
     internal static class Program
@@ -11,7 +14,7 @@ namespace Aggregate_Planing
             // To customize application configuration such as set high DPI settings or default font,
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            Application.Run(new InitialCatalog());
         }
     }
 }
