@@ -73,6 +73,7 @@
             this.btnCalculate.TabIndex = 3;
             this.btnCalculate.Text = "Calcular";
             this.btnCalculate.UseVisualStyleBackColor = true;
+            this.btnCalculate.Click += new System.EventHandler(this.btnCalculate_Click);
             // 
             // PlaningGenerate
             // 

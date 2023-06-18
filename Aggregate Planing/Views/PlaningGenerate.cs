@@ -15,8 +15,15 @@ namespace Aggregate_Planing.Views
 
         private int initialMonth;
         private int finalMonth;
-        //private double total;
-        //private bool updatingTotal = false;
+        private double operatorAverage;
+        private double initialCurrentOperators;
+        private double dailyCosPerOver;
+        private double costOfHiring;
+        private double costOfDismissing;
+        private double costToStore;
+        private double shortageCost;
+        private double initialInventory;
+        private double hoursPerWeek;
 
         string[] months = new string[]{
         "Enero", "Febrero", "Marzo", "Abril", "Mayo",
@@ -142,6 +149,54 @@ namespace Aggregate_Planing.Views
 
         }
 
+        private void SumCalculate()
+        {
+            double totalSum = 0;
+            double value = 0;
+           
+
+            for (int e = 0; e < dgvInitialTable.RowCount-1; e++)
+            {
+
+                for (int i = 0; i < dgvInitialTable.ColumnCount-1; i++)
+                {
+                    if (i+1 == dgvInitialTable.ColumnCount-1)
+                    {
+                        dgvInitialTable.Rows[e].Cells[dgvInitialTable.ColumnCount-1].Value = totalSum;
+                        totalSum = 0;
+                    }
+                    else
+                    {
+                        value = Convert.ToDouble(dgvInitialTable.Rows[e].Cells[i+1].Value);
+                        totalSum += value;
+                    }
+                }
+            }
+
+          
+        }
+        
+        private void getDgvRequiredDataValues()
+        {
+            double[] values = new double[9];
+
+            for (int i = 0; i < 9; i++)
+            {
+                values[i] = Convert.ToDouble(dgvRequiredData.Rows[i].Cells[1].Value);
+            }
+
+            operatorAverage = values[0];
+            initialCurrentOperators = values[1];
+            dailyCosPerOver = values[2];
+            costOfHiring = values[3];
+            costOfDismissing = values[4];
+            costToStore = values[5];
+            shortageCost = values[6];
+            initialInventory = values[7];
+            hoursPerWeek = values[8];
+
+        }
+
         private void dgvInitialTable_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             //if (updatingTotal) return;
@@ -159,5 +214,11 @@ namespace Aggregate_Planing.Views
 
             //}
             }
+
+        private void btnCalculate_Click(object sender, EventArgs e)
+        {
+            getDgvRequiredDataValues();
+            SumCalculate();
+        }
     }
 }
