@@ -29,28 +29,66 @@
         private void InitializeComponent()
         {
             this.dgvInitialTable = new System.Windows.Forms.DataGridView();
+            this.dgvRequiredData = new System.Windows.Forms.DataGridView();
+            this.dgvPlanCost = new System.Windows.Forms.DataGridView();
+            this.btnCalculate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInitialTable)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRequiredData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPlanCost)).BeginInit();
             this.SuspendLayout();
             // 
             // dgvInitialTable
             // 
             this.dgvInitialTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvInitialTable.Location = new System.Drawing.Point(21, 40);
+            this.dgvInitialTable.Location = new System.Drawing.Point(30, 34);
             this.dgvInitialTable.Name = "dgvInitialTable";
             this.dgvInitialTable.RowTemplate.Height = 25;
-            this.dgvInitialTable.Size = new System.Drawing.Size(742, 323);
+            this.dgvInitialTable.Size = new System.Drawing.Size(594, 381);
             this.dgvInitialTable.TabIndex = 0;
+            this.dgvInitialTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInitialTable_CellValueChanged);
+            // 
+            // dgvRequiredData
+            // 
+            this.dgvRequiredData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvRequiredData.Location = new System.Drawing.Point(715, 34);
+            this.dgvRequiredData.Name = "dgvRequiredData";
+            this.dgvRequiredData.RowTemplate.Height = 25;
+            this.dgvRequiredData.Size = new System.Drawing.Size(362, 381);
+            this.dgvRequiredData.TabIndex = 1;
+            // 
+            // dgvPlanCost
+            // 
+            this.dgvPlanCost.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvPlanCost.Location = new System.Drawing.Point(34, 450);
+            this.dgvPlanCost.Name = "dgvPlanCost";
+            this.dgvPlanCost.RowTemplate.Height = 25;
+            this.dgvPlanCost.Size = new System.Drawing.Size(590, 293);
+            this.dgvPlanCost.TabIndex = 2;
+            // 
+            // btnCalculate
+            // 
+            this.btnCalculate.Location = new System.Drawing.Point(715, 450);
+            this.btnCalculate.Name = "btnCalculate";
+            this.btnCalculate.Size = new System.Drawing.Size(168, 36);
+            this.btnCalculate.TabIndex = 3;
+            this.btnCalculate.Text = "Calcular";
+            this.btnCalculate.UseVisualStyleBackColor = true;
             // 
             // PlaningGenerate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 389);
+            this.ClientSize = new System.Drawing.Size(1126, 784);
+            this.Controls.Add(this.btnCalculate);
+            this.Controls.Add(this.dgvPlanCost);
+            this.Controls.Add(this.dgvRequiredData);
             this.Controls.Add(this.dgvInitialTable);
             this.Name = "PlaningGenerate";
             this.Text = "PlaningGenerate";
             this.Load += new System.EventHandler(this.PlaningGenerate_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvInitialTable)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvRequiredData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvPlanCost)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -58,5 +96,8 @@
         #endregion
 
         private DataGridView dgvInitialTable;
+        private DataGridView dgvRequiredData;
+        private DataGridView dgvPlanCost;
+        private Button btnCalculate;
     }
 }
