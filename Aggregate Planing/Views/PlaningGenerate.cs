@@ -157,18 +157,24 @@ namespace Aggregate_Planing.Views
 
             for (int e = 0; e < dgvInitialTable.RowCount-1; e++)
             {
-
-                for (int i = 0; i < dgvInitialTable.ColumnCount-1; i++)
+                if (e ==3)
                 {
-                    if (i+1 == dgvInitialTable.ColumnCount-1)
+                    Console.WriteLine("Dont do anything");  
+                }
+                else
+                {
+                    for (int i = 0; i < dgvInitialTable.ColumnCount-1; i++)
                     {
-                        dgvInitialTable.Rows[e].Cells[dgvInitialTable.ColumnCount-1].Value = totalSum;
-                        totalSum = 0;
-                    }
-                    else
-                    {
-                        value = Convert.ToDouble(dgvInitialTable.Rows[e].Cells[i+1].Value);
-                        totalSum += value;
+                        if (i+1 == dgvInitialTable.ColumnCount-1)
+                        {
+                            dgvInitialTable.Rows[e].Cells[dgvInitialTable.ColumnCount-1].Value = totalSum;
+                            totalSum = 0;
+                        }
+                        else
+                        {
+                            value = Convert.ToDouble(dgvInitialTable.Rows[e].Cells[i+1].Value);
+                            totalSum += value;
+                        }
                     }
                 }
             }
@@ -197,6 +203,37 @@ namespace Aggregate_Planing.Views
 
         }
 
+        private void UnitsPerOperator()
+        {
+            double unitsPerOperator = 0;
+            for (int i = 1; i < dgvInitialTable.ColumnCount-1; i++)
+            {
+                if(i == dgvInitialTable.ColumnCount-1)
+                {
+                    return;
+                }
+                double businessDay = Convert.ToDouble(dgvInitialTable.Rows[0].Cells[i].Value);
+                unitsPerOperator = businessDay * operatorAverage;
+                dgvInitialTable.Rows[2].Cells[i].Value= unitsPerOperator;
+                unitsPerOperator = 0; //Reset the value
+            }
+        }
+
+        private void RequiredOperators()
+        {
+
+            double totalDemand = Convert.ToDouble(dgvInitialTable.Rows[1].Cells[dgvInitialTable.ColumnCount-1].Value);
+            double totalUnitPerOperator = Convert.ToDouble(dgvInitialTable.Rows[2].Cells[dgvInitialTable.ColumnCount-1].Value);
+
+            double RequiredOperators = Math.Round((totalDemand / totalUnitPerOperator));
+
+
+            for (int i = 1; i < dgvInitialTable.ColumnCount; i++)
+            {
+                dgvInitialTable.Rows[3].Cells[i].Value = RequiredOperators;
+            }
+        }
+
         private void dgvInitialTable_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             //if (updatingTotal) return;
@@ -218,7 +255,9 @@ namespace Aggregate_Planing.Views
         private void btnCalculate_Click(object sender, EventArgs e)
         {
             getDgvRequiredDataValues();
-            SumCalculate();
+            UnitsPerOperator();
+            SumCalculate(); //First Call Because we need the total Demand and Operators to RequiredOperators.
+            RequiredOperators();
         }
     }
 }
