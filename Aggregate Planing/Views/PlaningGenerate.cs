@@ -258,6 +258,90 @@ namespace Aggregate_Planing.Views
             UnitsPerOperator();
             SumCalculate(); //First Call Because we need the total Demand and Operators to RequiredOperators.
             RequiredOperators();
+            actualOperators(true); //True Because is the first value
+            operatorsHired();
+            operatorsOff();
+            operatorsUsed();
+            SumCalculate();    
+
+        }
+
+        private void actualOperators(bool firstValue)
+        {
+            double value = 0;
+            if (firstValue)
+            {
+                value = initialCurrentOperators;
+                dgvInitialTable.Rows[4].Cells[1].Value = value;
+            }
+        }
+        private void operatorsHired()
+        {
+            double operatorsHired = 0;
+            double operatorsRequired = 0;
+            double actualOperators = 0;
+
+            for (int i = 1; i < dgvInitialTable.ColumnCount-1; i++)
+            {
+                operatorsRequired = Convert.ToDouble(dgvInitialTable.Rows[3].Cells[i].Value);
+                actualOperators = Convert.ToDouble(dgvInitialTable.Rows[4].Cells[i].Value);
+
+                if(operatorsRequired > actualOperators)
+                {
+                    operatorsHired = operatorsRequired - actualOperators;
+                }
+                else
+                {
+                    operatorsHired = 0;
+                }
+
+                dgvInitialTable.Rows[5].Cells[i].Value = operatorsHired;
+            }
+        }
+
+        private void operatorsOff()
+        {
+            double operatorsOff = 0;
+            double operatorRequired = 0;
+            double actualOperators = 0;
+
+            for (int i = 1; i < dgvInitialTable.ColumnCount-1; i++)
+            {
+                actualOperators = Convert.ToDouble(dgvInitialTable.Rows[4].Cells[i].Value);
+                operatorRequired = Convert.ToDouble(dgvInitialTable.Rows[3].Cells[i].Value);
+
+                if (actualOperators > operatorRequired)
+                {
+                    operatorsOff = actualOperators - operatorRequired;
+                }
+                else
+                {
+                    operatorsOff = 0;
+                }
+
+                dgvInitialTable.Rows[6].Cells[i].Value = operatorsOff ; 
+            }
+        }
+
+        private void operatorsUsed()
+        {
+            double operatorsUsed = 0;
+            double actualOperators = 0;
+            double operatorsHired = 0;
+            double operatorsOff = 0;
+
+            for (int i = 1; i < dgvInitialTable.ColumnCount-1; i++)
+            {
+                actualOperators = Convert.ToDouble(dgvInitialTable.Rows[4].Cells[i].Value);
+                operatorsHired = Convert.ToDouble(dgvInitialTable.Rows[5].Cells[i].Value);
+                operatorsOff = Convert.ToDouble(dgvInitialTable.Rows[6].Cells[i].Value);
+                operatorsUsed = ((actualOperators+ operatorsHired)-operatorsOff);
+
+                dgvInitialTable.Rows[7].Cells[i].Value = operatorsUsed;
+                
+            }
         }
     }
+
+        
 }
