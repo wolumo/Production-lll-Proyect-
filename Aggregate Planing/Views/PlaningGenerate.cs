@@ -281,6 +281,7 @@ namespace Aggregate_Planing.Views
                 unitsAvailable();
                 inventory();
             }
+            missingUnits();
             SumCalculate();    
 
         }
@@ -442,9 +443,74 @@ namespace Aggregate_Planing.Views
 
         private void missingUnits()
         {
+            double demand = 0;
+            double unitsAvailable = 0;
+            double missingUnits = 0;
 
+            for (int i = 1; i < dgvInitialTable.ColumnCount-1; i++)
+            {
+                demand = Convert.ToDouble(dgvInitialTable.Rows[1].Cells[i].Value);
+                unitsAvailable = Convert.ToDouble(dgvInitialTable.Rows[9].Cells[i].Value);
+
+                if (demand > unitsAvailable)
+                {
+                    missingUnits = demand - unitsAvailable;
+                }
+                else
+                {
+                    missingUnits = 0;
+                }
+                dgvInitialTable.Rows[11].Cells[i].Value = missingUnits;
+
+            }
         }
 
+        private void costToHire()
+        {
+            double operatorsHired = 0;
+            double costToHire = 0;
+
+            for (int i = 1; i < dgvPlanCost.ColumnCount-1; i++)
+            {
+                operatorsHired = Convert.ToDouble(dgvInitialTable.Rows[5].Cells[i].Value);
+
+                costToHire = operatorsHired * costOfHiring;
+
+                dgvPlanCost.Rows[0].Cells[i].Value = costToHire;
+            }
+        }
+
+        private void costToLayingOff()
+        {
+            double operatorsDismiss=0;
+            double costToLayingOff = 0;
+
+            for (int i = 1; i < dgvPlanCost.ColumnCount-1; i++)
+            {
+                operatorsDismiss = Convert.ToDouble(dgvInitialTable.Rows[6].Cells[i].Value);
+
+                costToLayingOff = operatorsDismiss * costOfDismissing;
+
+                dgvPlanCost.Rows[1].Cells[i].Value = costToLayingOff;
+            }
+        }
+
+        private void costToLabour()
+        {
+            double operatorsUsed = 0;
+            double daysWork = 0;
+            double costTolabour = 0;
+
+            for (int i = 1; i < dgvPlanCost.ColumnCount-1; i++)
+            {
+                operatorsUsed = Convert.ToDouble(dgvInitialTable.Rows[7].Cells[i].Value) ;
+                daysWork = Convert.ToDouble(dgvInitialTable.Rows[0].Cells[i].Value);
+
+                costTolabour =  operatorsUsed * daysWork * dailyCosPerOver;
+
+                dgvPlanCost.Rows[2].Cells[i].Value = costTolabour;
+            }
+        }
     }
 
         
