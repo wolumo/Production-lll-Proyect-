@@ -282,7 +282,16 @@ namespace Aggregate_Planing.Views
                 inventory();
             }
             missingUnits();
-            SumCalculate();    
+            SumCalculate();
+
+            //DgvCostMethods;
+            costToHire();
+            costToLayingOff();
+            costToLabour();
+            CostToStore();
+            costForShortages();
+            TotalCostPlaning();
+            SumCalculateCost();
 
         }
 
@@ -510,6 +519,79 @@ namespace Aggregate_Planing.Views
 
                 dgvPlanCost.Rows[2].Cells[i].Value = costTolabour;
             }
+        }
+
+        private void CostToStore()
+        {
+            double inventory = 0;
+            double costToStors = 0;
+
+            for (int i = 1; i < dgvPlanCost.ColumnCount-1; i++)
+            {
+                inventory = Convert.ToDouble(dgvInitialTable.Rows[10].Cells[i].Value);
+
+                costToStors = inventory * costToStore;
+
+                dgvPlanCost.Rows[3].Cells[i].Value = costToStors;
+            }
+            
+        }
+
+        private void costForShortages()
+        {
+            double costForShortages = 0;
+            double missingUnits = 0;
+
+            for (int i = 1; i < dgvPlanCost.ColumnCount-1; i++)
+            {
+                missingUnits = Convert.ToDouble(dgvInitialTable.Rows[11].Cells[i].Value);
+                costForShortages = missingUnits * shortageCost; 
+
+                dgvPlanCost.Rows[4].Cells[i].Value = costForShortages;
+            }
+        }
+
+        private void TotalCostPlaning()
+        {
+            double totalCost = 0;
+
+            for (int i = 1; i < dgvPlanCost.ColumnCount-1; i++)
+            {
+                for (int k = 0; k < dgvPlanCost.RowCount-2; k++)
+                {
+                    totalCost +=Convert.ToDouble(dgvPlanCost.Rows[k].Cells[i].Value);
+                }
+                dgvPlanCost.Rows[5].Cells[i].Value = totalCost;
+                totalCost = 0;
+            }
+        }
+
+        private void SumCalculateCost()
+        {
+            double totalSum = 0;
+            double value = 0;
+
+
+            for (int e = 0; e < dgvPlanCost.RowCount-1; e++)
+            {
+              
+                    for (int i = 0; i < dgvPlanCost.ColumnCount-1; i++)
+                    {
+                        if (i+1 == dgvPlanCost.ColumnCount-1)
+                        {
+                            dgvPlanCost.Rows[e].Cells[dgvPlanCost.ColumnCount-1].Value = totalSum;
+                            totalSum = 0;
+                        }
+                        else
+                        {
+                            value = Convert.ToDouble(dgvPlanCost.Rows[e].Cells[i+1].Value);
+                            totalSum += value;
+                        }
+                    }
+                
+            }
+
+
         }
     }
 
