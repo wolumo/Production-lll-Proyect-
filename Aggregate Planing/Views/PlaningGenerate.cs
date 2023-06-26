@@ -258,10 +258,29 @@ namespace Aggregate_Planing.Views
             UnitsPerOperator();
             SumCalculate(); //First Call Because we need the total Demand and Operators to RequiredOperators.
             RequiredOperators();
-            actualOperators(true); //True Because is the first value
-            operatorsHired();
-            operatorsOff();
-            operatorsUsed();
+            for (int i = 1; i < dgvInitialTable.ColumnCount-1; i++)
+            {
+                if (i ==1)
+                {
+                    actualOperators(true); //True Because is the first value
+                    operatorsHired();
+                    operatorsOff();
+                    operatorsUsed();
+                }
+                else
+                {
+                    actualOperators(false); //False Because the first value was setted.
+                    operatorsHired();
+                    operatorsOff();
+                    operatorsUsed();
+                }
+            }
+            unitsProduced();
+            for (int i = 1; i < dgvInitialTable.ColumnCount-1; i++)
+            {
+                unitsAvailable();
+                inventory();
+            }
             SumCalculate();    
 
         }
@@ -273,6 +292,15 @@ namespace Aggregate_Planing.Views
             {
                 value = initialCurrentOperators;
                 dgvInitialTable.Rows[4].Cells[1].Value = value;
+            }
+            else
+            {
+                for (int i = 2; i < dgvInitialTable.ColumnCount-1; i++)
+                {
+                    value = Convert.ToDouble(dgvInitialTable.Rows[7].Cells[i-1].Value);
+                    dgvInitialTable.Rows[4].Cells[i].Value = value; //|Aca va a pegar
+                }
+                
             }
         }
         private void operatorsHired()
@@ -341,6 +369,82 @@ namespace Aggregate_Planing.Views
                 
             }
         }
+        private void unitsProduced()
+        {
+            double unitsProduced = 0;
+            double unitsPerOperator = 0;
+            double operatorsUsed = 0;
+
+            for (int i = 1; i < dgvInitialTable.ColumnCount-1; i++)
+            {
+                unitsPerOperator = Convert.ToDouble(dgvInitialTable.Rows[2].Cells[i].Value);
+                operatorsUsed = Convert.ToDouble(dgvInitialTable.Rows[7].Cells[i].Value);
+
+                unitsProduced = unitsPerOperator * operatorsUsed;
+
+                dgvInitialTable.Rows[8].Cells[i].Value = unitsProduced;
+            }
+        }
+
+        private void unitsAvailable()
+        {
+            double unitsAvailable = 0;
+            double unitsProduced = 0;
+            double inventary = 0;
+
+            for (int i = 1; i < dgvInitialTable.ColumnCount-1; i++)
+            {
+                if (i == 1)
+                {
+                    unitsProduced = Convert.ToDouble(dgvInitialTable.Rows[8].Cells[i].Value);
+                    unitsAvailable = unitsProduced + initialInventory;
+
+                    dgvInitialTable.Rows[9].Cells[i].Value = unitsAvailable;
+                }
+                else
+                {
+                    unitsProduced = Convert.ToDouble(dgvInitialTable.Rows[8].Cells[i].Value);
+                    inventary = Convert.ToDouble(dgvInitialTable.Rows[10].Cells[i-1].Value);
+
+                    unitsAvailable = unitsProduced + inventary;
+
+                    dgvInitialTable.Rows[9].Cells[i].Value = unitsAvailable;
+                }
+            }
+        }
+
+        private void inventory()
+        {
+            double inventory= 0;
+            double unitsAvailable = 0;
+            double demand = 0;
+
+
+            for (int i = 1; i < dgvInitialTable.ColumnCount - 1; i++)
+            {
+                unitsAvailable = Convert.ToDouble(dgvInitialTable.Rows[9].Cells[i].Value);
+                demand = Convert.ToDouble(dgvInitialTable.Rows[1].Cells[i].Value);
+
+                if ( unitsAvailable > demand)
+                {
+                    inventory = unitsAvailable - demand;
+
+                }
+                else
+                {
+                    inventory = 0;
+                }
+
+                dgvInitialTable.Rows[10].Cells[i].Value = inventory;
+            }
+            
+        }
+
+        private void missingUnits()
+        {
+
+        }
+
     }
 
         
