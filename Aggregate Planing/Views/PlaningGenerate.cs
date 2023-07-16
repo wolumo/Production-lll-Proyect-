@@ -100,6 +100,8 @@ namespace Aggregate_Planing.Views
                 dgvInitialTable.Rows.Add(rows);
 
             }
+
+
             for (int i = 2; i < dgvInitialTable.RowCount-1; i++)
             {
 
@@ -119,6 +121,7 @@ namespace Aggregate_Planing.Views
             DataGridViewColumn column = dgvInitialTable.Columns[dgvInitialTable.ColumnCount-1];
             column.DefaultCellStyle.BackColor = Color.Gray;
             column.ReadOnly = true;
+            dgvInitialTable.AllowUserToAddRows = false;
         }
 
         private void ChargeRequiredDataDgv()
@@ -142,7 +145,7 @@ namespace Aggregate_Planing.Views
                 dgvRequiredData.Rows[i].Cells[2].Value = measureRows;   
             }
 
-        
+            dgvRequiredData.AllowUserToAddRows = false; 
         }
 
         private void ChargeCostDgv()
@@ -165,6 +168,24 @@ namespace Aggregate_Planing.Views
                 dgvPlanCost.Rows.Add(rows);
             }
 
+            for (int i = 0; i < dgvPlanCost.RowCount-1; i++)
+            {
+
+
+
+                DataGridViewRow row = dgvPlanCost.Rows[i];
+
+                row.DefaultCellStyle.BackColor = Color.Gray;
+
+                row.DefaultCellStyle.SelectionBackColor = Color.Gray;
+
+
+                row.DefaultCellStyle.Font = new Font(dgvPlanCost.Font, FontStyle.Italic);
+                row.ReadOnly = true;
+
+            }
+            dgvPlanCost.AllowUserToAddRows = false;
+
         }
 
         private void SumCalculate()
@@ -177,7 +198,7 @@ namespace Aggregate_Planing.Views
             {
                 if (e ==3)
                 {
-                    Console.WriteLine("Dont do anything");  
+                   
                 }
                 else
                 {
@@ -626,13 +647,21 @@ namespace Aggregate_Planing.Views
         {
             dgvInitialTable.ClearSelection();
 
-
             foreach (DataGridViewRow row in dgvInitialTable.Rows)
             {
                 row.DefaultCellStyle.BackColor = dgvInitialTable.DefaultCellStyle.BackColor;
-                row.ReadOnly = dgvInitialTable.ReadOnly;
+               
 
             }
+
+            dgvPlanCost.ClearSelection();
+
+            foreach (DataGridViewRow row in dgvPlanCost.Rows)
+            {
+                row.DefaultCellStyle.BackColor = dgvPlanCost.DefaultCellStyle.BackColor;
+             
+            }
+            
         }
     }
 
