@@ -45,6 +45,7 @@
             this.dgvInitialTable.RowTemplate.Height = 25;
             this.dgvInitialTable.Size = new System.Drawing.Size(594, 381);
             this.dgvInitialTable.TabIndex = 0;
+            //this.dgvInitialTable.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvInitialTable_CellFormatting);
             this.dgvInitialTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInitialTable_CellValueChanged);
             // 
             // dgvRequiredData

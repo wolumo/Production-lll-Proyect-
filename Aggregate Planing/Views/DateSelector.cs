@@ -44,13 +44,39 @@ namespace Aggregate_Planing.Views
 
         private void btnDone_Click(object sender, EventArgs e)
         {
+            bool Indicator;
             int InitialMonth = cmbFrom.SelectedIndex;
             int FinalMonth = cmbTo.SelectedIndex;
-            PlaningGenerate planing = new PlaningGenerate(InitialMonth, FinalMonth);
-            planing.Show();
-            this.Close();
+            Indicator = validateMonths(InitialMonth, FinalMonth);
+
+            if (Indicator)
+            {
+                PlaningGenerate planing = new PlaningGenerate(InitialMonth, FinalMonth);
+                planing.Show();
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("El Mes de Inicio no debe ser Mayor que El final");
+                return;
+            }
+            
         }
 
+        private bool validateMonths(int InitialMonth, int FinalMonth)
+        {
+            bool Indicator;
+            if(InitialMonth > FinalMonth)
+            {
+                Indicator = false;
+            }
+            else
+            {
+                Indicator = true;
+            }
+
+            return Indicator;
+        }
         
     }
 }

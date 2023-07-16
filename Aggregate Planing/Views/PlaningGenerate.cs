@@ -100,7 +100,25 @@ namespace Aggregate_Planing.Views
                 dgvInitialTable.Rows.Add(rows);
 
             }
+            for (int i = 2; i < dgvInitialTable.RowCount-1; i++)
+            {
 
+
+                
+                    DataGridViewRow row = dgvInitialTable.Rows[i];
+
+                    row.DefaultCellStyle.BackColor = Color.Gray;
+                   
+                    row.DefaultCellStyle.SelectionBackColor = Color.Gray;
+                 
+
+                    row.DefaultCellStyle.Font = new Font(dgvInitialTable.Font, FontStyle.Italic);
+                    row.ReadOnly = true;
+
+            }
+            DataGridViewColumn column = dgvInitialTable.Columns[dgvInitialTable.ColumnCount-1];
+            column.DefaultCellStyle.BackColor = Color.Gray;
+            column.ReadOnly = true;
         }
 
         private void ChargeRequiredDataDgv()
@@ -254,6 +272,7 @@ namespace Aggregate_Planing.Views
 
         private void btnCalculate_Click(object sender, EventArgs e)
         {
+            DefaultDgvStyle();
             getDgvRequiredDataValues();
             UnitsPerOperator();
             SumCalculate(); //First Call Because we need the total Demand and Operators to RequiredOperators.
@@ -592,6 +611,28 @@ namespace Aggregate_Planing.Views
             }
 
 
+        }
+
+        //private void dgvInitialTable_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        //{
+            
+            
+
+
+
+        //}
+
+        private void DefaultDgvStyle()
+        {
+            dgvInitialTable.ClearSelection();
+
+
+            foreach (DataGridViewRow row in dgvInitialTable.Rows)
+            {
+                row.DefaultCellStyle.BackColor = dgvInitialTable.DefaultCellStyle.BackColor;
+                row.ReadOnly = dgvInitialTable.ReadOnly;
+
+            }
         }
     }
 
