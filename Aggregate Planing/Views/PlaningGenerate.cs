@@ -102,7 +102,7 @@ namespace Aggregate_Planing.Views
             }
 
 
-            for (int i = 2; i < dgvInitialTable.RowCount-1; i++)
+            for (int i = 2; i < dgvInitialTable.RowCount; i++)
             {
 
 
@@ -168,7 +168,7 @@ namespace Aggregate_Planing.Views
                 dgvPlanCost.Rows.Add(rows);
             }
 
-            for (int i = 0; i < dgvPlanCost.RowCount-1; i++)
+            for (int i = 0; i < dgvPlanCost.RowCount; i++)
             {
 
 
@@ -662,6 +662,17 @@ namespace Aggregate_Planing.Views
              
             }
             
+        }
+
+        private void btnClean_Click(object sender, EventArgs e)
+        {
+
+            dgvInitialTable.Rows.Clear();
+            dgvPlanCost.Rows.Clear();
+            dgvRequiredData.Rows.Clear();
+            ChargeInitialDgv();
+            ChargeRequiredDataDgv();
+            ChargeCostDgv();
         }
     }
 

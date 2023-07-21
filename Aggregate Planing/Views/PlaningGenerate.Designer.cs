@@ -32,6 +32,7 @@
             this.dgvRequiredData = new System.Windows.Forms.DataGridView();
             this.dgvPlanCost = new System.Windows.Forms.DataGridView();
             this.btnCalculate = new System.Windows.Forms.Button();
+            this.btnClean = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInitialTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRequiredData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPlanCost)).BeginInit();
@@ -45,7 +46,6 @@
             this.dgvInitialTable.RowTemplate.Height = 25;
             this.dgvInitialTable.Size = new System.Drawing.Size(594, 381);
             this.dgvInitialTable.TabIndex = 0;
-            //this.dgvInitialTable.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvInitialTable_CellFormatting);
             this.dgvInitialTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInitialTable_CellValueChanged);
             // 
             // dgvRequiredData
@@ -76,11 +76,22 @@
             this.btnCalculate.UseVisualStyleBackColor = true;
             this.btnCalculate.Click += new System.EventHandler(this.btnCalculate_Click);
             // 
+            // btnClean
+            // 
+            this.btnClean.Location = new System.Drawing.Point(907, 450);
+            this.btnClean.Name = "btnClean";
+            this.btnClean.Size = new System.Drawing.Size(170, 36);
+            this.btnClean.TabIndex = 4;
+            this.btnClean.Text = "Limpiar Tablas";
+            this.btnClean.UseVisualStyleBackColor = true;
+            this.btnClean.Click += new System.EventHandler(this.btnClean_Click);
+            // 
             // PlaningGenerate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1126, 784);
+            this.Controls.Add(this.btnClean);
             this.Controls.Add(this.btnCalculate);
             this.Controls.Add(this.dgvPlanCost);
             this.Controls.Add(this.dgvRequiredData);
@@ -101,5 +112,6 @@
         private DataGridView dgvRequiredData;
         private DataGridView dgvPlanCost;
         private Button btnCalculate;
+        private Button btnClean;
     }
 }
