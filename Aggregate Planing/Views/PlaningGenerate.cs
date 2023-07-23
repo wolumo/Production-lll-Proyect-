@@ -75,6 +75,13 @@ namespace Aggregate_Planing.Views
             ChargeInitialDgv();
             ChargeRequiredDataDgv();
             ChargeCostDgv();
+            dgvInitialTable.ClearSelection();
+            dgvRequiredData.ClearSelection();
+            dgvPlanCost.ClearSelection();
+            
+            
+
+           
         }
 
         private void ChargeInitialDgv()
@@ -122,6 +129,13 @@ namespace Aggregate_Planing.Views
             column.DefaultCellStyle.BackColor = Color.Gray;
             column.ReadOnly = true;
             dgvInitialTable.AllowUserToAddRows = false;
+
+            dgvInitialTable.Rows[0].Cells[0].ReadOnly = true;
+            dgvInitialTable.Rows[1].Cells[0].ReadOnly = true;
+
+            dgvInitialTable.AllowUserToOrderColumns = false;
+            dgvInitialTable.AllowUserToResizeColumns = false;
+            dgvInitialTable.AllowUserToDeleteRows = false;
         }
 
         private void ChargeRequiredDataDgv()
@@ -145,7 +159,17 @@ namespace Aggregate_Planing.Views
                 dgvRequiredData.Rows[i].Cells[2].Value = measureRows;   
             }
 
-            dgvRequiredData.AllowUserToAddRows = false; 
+            dgvRequiredData.AllowUserToAddRows = false;
+
+            for (int i = 0; i < dgvRequiredData.RowCount; i++)
+            {
+                dgvRequiredData.Rows[i].Cells[0].ReadOnly = true;
+                dgvRequiredData.Rows[i].Cells[2].ReadOnly = true;
+            }
+
+            dgvRequiredData.AllowUserToDeleteRows=false;
+            dgvRequiredData.AllowUserToOrderColumns=false;
+            dgvRequiredData.AllowUserToResizeColumns = false;
         }
 
         private void ChargeCostDgv()
@@ -185,6 +209,7 @@ namespace Aggregate_Planing.Views
 
             }
             dgvPlanCost.AllowUserToAddRows = false;
+            dgvPlanCost.AllowUserToDeleteRows=false;
 
         }
 
@@ -194,7 +219,7 @@ namespace Aggregate_Planing.Views
             double value = 0;
            
 
-            for (int e = 0; e < dgvInitialTable.RowCount-1; e++)
+            for (int e = 0; e < dgvInitialTable.RowCount; e++)
             {
                 if (e ==3)
                 {
@@ -273,23 +298,7 @@ namespace Aggregate_Planing.Views
             }
         }
 
-        private void dgvInitialTable_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            //if (updatingTotal) return;
-
-            //if(e.ColumnIndex == e.ColumnIndex && e.RowIndex >=0)
-            //{
-            //    updatingTotal=true;
-
-            //    double insertedNumber = Convert.ToDouble(dgvInitialTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value);
-            //    total += insertedNumber;
-
-            //    dgvInitialTable.Rows[e.RowIndex].Cells[dgvInitialTable.ColumnCount-1].Value = total;
-
-            //    updatingTotal=false;
-
-            //}
-            }
+       
 
         private void btnCalculate_Click(object sender, EventArgs e)
         {
@@ -597,7 +606,7 @@ namespace Aggregate_Planing.Views
 
             for (int i = 1; i < dgvPlanCost.ColumnCount-1; i++)
             {
-                for (int k = 0; k < dgvPlanCost.RowCount-2; k++)
+                for (int k = 0; k < dgvPlanCost.RowCount-1; k++)
                 {
                     totalCost +=Convert.ToDouble(dgvPlanCost.Rows[k].Cells[i].Value);
                 }
@@ -612,19 +621,19 @@ namespace Aggregate_Planing.Views
             double value = 0;
 
 
-            for (int e = 0; e < dgvPlanCost.RowCount-1; e++)
+            for (int e = 0; e < dgvPlanCost.RowCount; e++)
             {
-              
-                    for (int i = 0; i < dgvPlanCost.ColumnCount-1; i++)
+                Console.WriteLine(dgvPlanCost.ColumnCount);
+                    for (int i = 1; i < dgvPlanCost.ColumnCount; i++)
                     {
-                        if (i+1 == dgvPlanCost.ColumnCount-1)
+                        if (i == dgvPlanCost.ColumnCount-1)
                         {
                             dgvPlanCost.Rows[e].Cells[dgvPlanCost.ColumnCount-1].Value = totalSum;
                             totalSum = 0;
                         }
                         else
                         {
-                            value = Convert.ToDouble(dgvPlanCost.Rows[e].Cells[i+1].Value);
+                            value = Convert.ToDouble(dgvPlanCost.Rows[e].Cells[i].Value);
                             totalSum += value;
                         }
                     }
@@ -673,6 +682,99 @@ namespace Aggregate_Planing.Views
             ChargeInitialDgv();
             ChargeRequiredDataDgv();
             ChargeCostDgv();
+        }
+
+      
+
+        //private void dgvInitialTable_CellEndEdit(object sender, DataGridViewCellEventArgs e)
+        //{
+        //    if (e.RowIndex >= 0 && e.ColumnIndex >= 0) 
+        //    {
+        //        string inputValue = dgvInitialTable.Rows[e.RowIndex].Cells[e.ColumnIndex].FormattedValue.ToString();
+
+        //        if (inputValue == "")
+        //        {
+        //            return;
+        //        }
+
+        //        if (e.ColumnIndex == 0)
+        //        {
+        //            return;
+        //        }
+
+        //        if (!double.TryParse(inputValue, out double result))
+        //        {
+        //            MessageBox.Show("Por favor, solo ingrese números", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+        //            // Cambiar el valor de la celda a vacío (""), ya que la validación ha fallado
+        //            dgvInitialTable.Rows[e.RowIndex].Cells[e.ColumnIndex].Value = "";
+        //        }
+        //    }
+        //}
+
+        private void dgvInitialTable_CellValidating_1(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            string inputValue = e.FormattedValue.ToString();
+
+            if (inputValue =="")
+            {
+                return;
+            }
+
+            if (e.ColumnIndex ==0)
+            {
+                return;
+            }
+
+            if (!double.TryParse(inputValue, out double result))
+            {
+
+                MessageBox.Show("Por favor, solo ingrese numeros", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                e.Cancel =true;
+
+            }
+        }
+
+        private void dgvRequiredData_CellValidating(object sender, DataGridViewCellValidatingEventArgs e)
+        {
+            string inputValue = e.FormattedValue.ToString();
+
+            if (inputValue =="")
+            {
+                return;
+            }
+
+            if (e.ColumnIndex ==0 || e.ColumnIndex == 2)
+            {
+                return;
+            }
+
+            if (!double.TryParse(inputValue, out double result))
+            {
+
+                MessageBox.Show("Por favor, solo ingrese numeros", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                e.Cancel =true;
+
+            }
+
+        }
+
+        private void dgvInitialTable_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
+        {
+            e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            
+        }
+
+        private void dgvInitialTable_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            
+        }
+
+        private void dgvRequiredData_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
+        {
+            e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
         }
     }
 

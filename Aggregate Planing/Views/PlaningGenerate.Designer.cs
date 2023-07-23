@@ -46,7 +46,9 @@
             this.dgvInitialTable.RowTemplate.Height = 25;
             this.dgvInitialTable.Size = new System.Drawing.Size(594, 381);
             this.dgvInitialTable.TabIndex = 0;
-            this.dgvInitialTable.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvInitialTable_CellValueChanged);
+            this.dgvInitialTable.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvInitialTable_CellValidating_1);
+            this.dgvInitialTable.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvInitialTable_ColumnAdded);
+            this.dgvInitialTable.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dgvInitialTable_RowsAdded);
             // 
             // dgvRequiredData
             // 
@@ -56,6 +58,8 @@
             this.dgvRequiredData.RowTemplate.Height = 25;
             this.dgvRequiredData.Size = new System.Drawing.Size(362, 381);
             this.dgvRequiredData.TabIndex = 1;
+            this.dgvRequiredData.CellValidating += new System.Windows.Forms.DataGridViewCellValidatingEventHandler(this.dgvRequiredData_CellValidating);
+            this.dgvRequiredData.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dgvRequiredData_ColumnAdded);
             // 
             // dgvPlanCost
             // 
