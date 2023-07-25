@@ -24,6 +24,7 @@ namespace Aggregate_Planing.Views
         private double shortageCost;
         private double initialInventory;
         private double hoursPerWeek;
+        private bool validateIndicator;
 
         string[] months = new string[]{
         "Enero", "Febrero", "Marzo", "Abril", "Mayo",
@@ -302,48 +303,80 @@ namespace Aggregate_Planing.Views
 
         private void btnCalculate_Click(object sender, EventArgs e)
         {
-            DefaultDgvStyle();
-            getDgvRequiredDataValues();
-            UnitsPerOperator();
-            SumCalculate(); //First Call Because we need the total Demand and Operators to RequiredOperators.
-            RequiredOperators();
-            for (int i = 1; i < dgvInitialTable.ColumnCount-1; i++)
+            ValidateNullSpaces();
+            if (validateIndicator)
             {
-                if (i ==1)
-                {
-                    actualOperators(true); //True Because is the first value
-                    operatorsHired();
-                    operatorsOff();
-                    operatorsUsed();
-                }
-                else
-                {
-                    actualOperators(false); //False Because the first value was setted.
-                    operatorsHired();
-                    operatorsOff();
-                    operatorsUsed();
-                }
-            }
-            unitsProduced();
-            for (int i = 1; i < dgvInitialTable.ColumnCount-1; i++)
-            {
-                unitsAvailable();
-                inventory();
-            }
-            missingUnits();
-            SumCalculate();
 
-            //DgvCostMethods;
-            costToHire();
-            costToLayingOff();
-            costToLabour();
-            CostToStore();
-            costForShortages();
-            TotalCostPlaning();
-            SumCalculateCost();
 
+                DefaultDgvStyle();
+                getDgvRequiredDataValues();
+                UnitsPerOperator();
+                SumCalculate(); //First Call Because we need the total Demand and Operators to RequiredOperators.
+                RequiredOperators();
+                for (int i = 1; i < dgvInitialTable.ColumnCount-1; i++)
+                {
+                    if (i ==1)
+                    {
+                        actualOperators(true); //True Because is the first value
+                        operatorsHired();
+                        operatorsOff();
+                        operatorsUsed();
+                    }
+                    else
+                    {
+                        actualOperators(false); //False Because the first value was setted.
+                        operatorsHired();
+                        operatorsOff();
+                        operatorsUsed();
+                    }
+                }
+                unitsProduced();
+                for (int i = 1; i < dgvInitialTable.ColumnCount-1; i++)
+                {
+                    unitsAvailable();
+                    inventory();
+                }
+                missingUnits();
+                SumCalculate();
+
+                //DgvCostMethods;
+                costToHire();
+                costToLayingOff();
+                costToLabour();
+                CostToStore();
+                costForShortages();
+                TotalCostPlaning();
+                SumCalculateCost();
+
+
+            }
         }
 
+        private void ValidateNullSpaces()
+        {
+            validateIndicator = true;
+            for (int i = 0; i < 2; i++)
+            {
+
+
+                for (int k = 0; k < dgvInitialTable.ColumnCount; k++)
+                {
+
+                    if (dgvInitialTable.Rows[i].Cells[k].Value == null || dgvInitialTable.Rows[i].Cells[k].Value.ToString().Trim()=="")
+                    {
+                        validateIndicator = false;
+                    }
+                }
+            }
+
+            for (int i = 0; i < dgvRequiredData.RowCount; i++)
+            {
+                if (dgvRequiredData.Rows[i].Cells[1].Value == null || dgvRequiredData.Rows[i].Cells[1].Value.ToString().Trim() =="")
+                {
+                    validateIndicator = false;
+                }
+            }
+        }
         private void actualOperators(bool firstValue)
         {
             double value = 0;
