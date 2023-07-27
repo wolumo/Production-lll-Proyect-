@@ -137,6 +137,10 @@ namespace Aggregate_Planing.Views
             dgvInitialTable.AllowUserToOrderColumns = false;
             dgvInitialTable.AllowUserToResizeColumns = false;
             dgvInitialTable.AllowUserToDeleteRows = false;
+
+            dgvInitialTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+
         }
 
         private void ChargeRequiredDataDgv()
@@ -171,6 +175,8 @@ namespace Aggregate_Planing.Views
             dgvRequiredData.AllowUserToDeleteRows=false;
             dgvRequiredData.AllowUserToOrderColumns=false;
             dgvRequiredData.AllowUserToResizeColumns = false;
+
+            dgvRequiredData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         private void ChargeCostDgv()
@@ -211,6 +217,8 @@ namespace Aggregate_Planing.Views
             }
             dgvPlanCost.AllowUserToAddRows = false;
             dgvPlanCost.AllowUserToDeleteRows=false;
+
+            dgvPlanCost.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
         }
 
@@ -359,13 +367,15 @@ namespace Aggregate_Planing.Views
             {
 
 
-                for (int k = 0; k < dgvInitialTable.ColumnCount; k++)
+                for (int k = 0; k < dgvInitialTable.ColumnCount-1; k++)
                 {
 
                     if (dgvInitialTable.Rows[i].Cells[k].Value == null || dgvInitialTable.Rows[i].Cells[k].Value.ToString().Trim()=="")
                     {
+                        
                         validateIndicator = false;
                     }
+
                 }
             }
 
@@ -373,8 +383,14 @@ namespace Aggregate_Planing.Views
             {
                 if (dgvRequiredData.Rows[i].Cells[1].Value == null || dgvRequiredData.Rows[i].Cells[1].Value.ToString().Trim() =="")
                 {
+                    
                     validateIndicator = false;
                 }
+            }
+
+            if(validateIndicator == false)
+            {
+                MessageBox.Show("No puede haber espacios nullos", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
         private void actualOperators(bool firstValue)
@@ -808,6 +824,11 @@ namespace Aggregate_Planing.Views
         private void dgvRequiredData_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
         {
             e.Column.SortMode = DataGridViewColumnSortMode.NotSortable;
+        }
+
+        private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 
