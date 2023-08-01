@@ -4,6 +4,7 @@ using Aggregate_Planing.Conexion;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aggregate_Planing.Migrations
 {
     [DbContext(typeof(MyDBContexrt))]
-    partial class MyDBContexrtModelSnapshot : ModelSnapshot
+    [Migration("20230801042056_Detail Cost Created_0.4")]
+    partial class DetailCostCreated_04
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

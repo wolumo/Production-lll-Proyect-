@@ -4,6 +4,7 @@ using Aggregate_Planing.Conexion;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aggregate_Planing.Migrations
 {
     [DbContext(typeof(MyDBContexrt))]
-    partial class MyDBContexrtModelSnapshot : ModelSnapshot
+    [Migration("20230801034020_Detail Fields Added")]
+    partial class DetailFieldsAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,40 +24,6 @@ namespace Aggregate_Planing.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("Aggregate_Planing.Model.AgregationDetailCost", b =>
-                {
-                    b.Property<int>("AgregationDetailCostId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AgregationDetailCostId"));
-
-                    b.Property<double>("costForShortages")
-                        .HasColumnType("float");
-
-                    b.Property<double>("costToHires")
-                        .HasColumnType("float");
-
-                    b.Property<double>("costToLabour")
-                        .HasColumnType("float");
-
-                    b.Property<double>("costToStore")
-                        .HasColumnType("float");
-
-                    b.Property<double>("costTolayingOff")
-                        .HasColumnType("float");
-
-                    b.Property<int>("idMonth")
-                        .HasColumnType("int");
-
-                    b.Property<int>("idPlan")
-                        .HasColumnType("int");
-
-                    b.HasKey("AgregationDetailCostId");
-
-                    b.ToTable("AgreggationDetailsCosts");
-                });
 
             modelBuilder.Entity("Aggregate_Planing.Model.AgreggationDetail", b =>
                 {

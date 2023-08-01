@@ -26,6 +26,8 @@ namespace Aggregate_Planing.Conexion
 
         public virtual DbSet<AgreggationDetail> AgreggationDetails { get; set; }
 
+        public virtual DbSet<AgregationDetailCost> AgreggationDetailsCosts { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

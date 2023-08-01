@@ -38,6 +38,7 @@
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
+            this.bntSave = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvInitialTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvPlanCost)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvRequiredData)).BeginInit();
@@ -76,7 +77,7 @@
             this.btnCalculate.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnCalculate.Location = new System.Drawing.Point(3, 3);
             this.btnCalculate.Name = "btnCalculate";
-            this.btnCalculate.Size = new System.Drawing.Size(269, 38);
+            this.btnCalculate.Size = new System.Drawing.Size(269, 37);
             this.btnCalculate.TabIndex = 3;
             this.btnCalculate.Text = "Calcular";
             this.btnCalculate.UseVisualStyleBackColor = true;
@@ -87,7 +88,7 @@
             this.btnClean.Dock = System.Windows.Forms.DockStyle.Fill;
             this.btnClean.Location = new System.Drawing.Point(278, 3);
             this.btnClean.Name = "btnClean";
-            this.btnClean.Size = new System.Drawing.Size(270, 38);
+            this.btnClean.Size = new System.Drawing.Size(270, 37);
             this.btnClean.TabIndex = 4;
             this.btnClean.Text = "Limpiar Tablas";
             this.btnClean.UseVisualStyleBackColor = true;
@@ -171,6 +172,7 @@
             this.tableLayoutPanel4.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.Controls.Add(this.btnClean, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.btnCalculate, 0, 0);
+            this.tableLayoutPanel4.Controls.Add(this.bntSave, 0, 1);
             this.tableLayoutPanel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel4.Location = new System.Drawing.Point(3, 392);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -179,6 +181,15 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 88.51175F));
             this.tableLayoutPanel4.Size = new System.Drawing.Size(551, 383);
             this.tableLayoutPanel4.TabIndex = 2;
+            // 
+            // bntSave
+            // 
+            this.bntSave.Location = new System.Drawing.Point(3, 46);
+            this.bntSave.Name = "bntSave";
+            this.bntSave.Size = new System.Drawing.Size(269, 45);
+            this.bntSave.TabIndex = 5;
+            this.bntSave.Text = "Guardar";
+            this.bntSave.UseVisualStyleBackColor = true;
             // 
             // PlaningGenerate
             // 
@@ -213,5 +224,6 @@
         private TableLayoutPanel tableLayoutPanel3;
         private TableLayoutPanel tableLayoutPanel4;
         private TableLayoutPanel tableLayoutPanel5;
+        private Button bntSave;
     }
 }
