@@ -14,5 +14,35 @@ namespace Aggregate_Planing.Model
         public string NamePlan { get; set; }
 
         public DateTime CreatedDateTime { get; set; }
+
+        [Required]
+        public int operatorAverage { get; set; }
+
+        [Required]
+        public int initialCurrentOperators { get; set; }
+
+        [Required]
+
+        public double dailyCosPerOver { get; set; }
+
+        [Required]
+        public double costOfHiring { get; set; }
+
+        [Required]
+        public double costOfDismissing { get; set; }
+
+        [Required]
+        public double costToStore { get; set; }
+
+        [Required]
+        public double shortageCost { get; set; }
+
+        [Required]
+
+        public int initialInventory { get; set; }
+
+        [Required]
+        public double hoursPerWeek { get; set; }
+
     }
 }
