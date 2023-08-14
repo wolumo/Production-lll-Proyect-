@@ -190,6 +190,7 @@
             this.bntSave.TabIndex = 5;
             this.bntSave.Text = "Guardar";
             this.bntSave.UseVisualStyleBackColor = true;
+            this.bntSave.Click += new System.EventHandler(this.bntSave_Click);
             // 
             // PlaningGenerate
             // 

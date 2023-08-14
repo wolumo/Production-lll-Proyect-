@@ -25,6 +25,20 @@ namespace Aggregate_Planing.Views
         private double initialInventory;
         private double hoursPerWeek;
         private bool validateIndicator;
+        /*****************************************************/
+        private int WorkingDays;
+        private int Demand;
+        private int unitsPerOperator;
+        private int OperatorsRequired;
+        private int ActualOperators;
+        private int OperatorsHired;
+        private int laidOffOperators;
+        private int operatorsUsed;
+        private int unitsProduced;
+        private int unitsAvailble;
+        private int Inventory;
+        private int missingUnits;
+      
 
         string[] months = new string[]{
         "Enero", "Febrero", "Marzo", "Abril", "Mayo",
@@ -829,6 +843,26 @@ namespace Aggregate_Planing.Views
         private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void bntSave_Click(object sender, EventArgs e)
+        {
+            saveInitialTable();
+        }
+
+        private void saveInitialTable()
+        {
+            for (int i= 1; i<dgvInitialTable.ColumnCount; i++)
+            {
+                
+                
+                    WorkingDays = Convert.ToInt32(dgvInitialTable.Rows[0].Cells[i].Value);
+                    Demand = Convert.ToInt32(dgvInitialTable.Rows[1].Cells[i].Value);
+                    unitsPerOperator= Convert.ToInt32(dgvInitialTable.Rows[2].Cells[i].Value);
+
+
+
+            } 
         }
     }
 

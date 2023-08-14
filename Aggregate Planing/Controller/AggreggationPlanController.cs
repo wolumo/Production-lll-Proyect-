@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Aggregate_Planing.Controller
 {
-    internal class PlanningGenerateController
+    internal class AggreggationPlanController
     {
     }
 }
