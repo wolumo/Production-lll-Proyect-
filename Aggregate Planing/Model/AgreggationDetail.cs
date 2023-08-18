@@ -23,7 +23,7 @@ namespace Aggregate_Planing.Model
         public int idMonth { get; set; }
 
         [Required]
-        public int businessDays { get; set; }
+        public int WorkingDays { get; set; }
 
         [Required]
 

@@ -1,7 +1,10 @@
-﻿using System;
+﻿using Aggregate_Planing.Controller;
+using Aggregate_Planing.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -15,6 +18,8 @@ namespace Aggregate_Planing.Views
 
         private int initialMonth;
         private int finalMonth;
+
+        /** Required Data Values *****/
         private double operatorAverage;
         private double initialCurrentOperators;
         private double dailyCosPerOver;
@@ -38,6 +43,9 @@ namespace Aggregate_Planing.Views
         private int unitsAvailble;
         private int Inventory;
         private int missingUnits;
+
+        private AgreggationDetailController agreggationDetailController;
+
       
 
         string[] months = new string[]{
@@ -342,23 +350,23 @@ namespace Aggregate_Planing.Views
                         actualOperators(true); //True Because is the first value
                         operatorsHired();
                         operatorsOff();
-                        operatorsUsed();
+                        operatorsUsedCalculate();
                     }
                     else
                     {
                         actualOperators(false); //False Because the first value was setted.
                         operatorsHired();
                         operatorsOff();
-                        operatorsUsed();
+                        operatorsUsedCalculate();
                     }
                 }
-                unitsProduced();
+                unitsProducedCalculate();
                 for (int i = 1; i < dgvInitialTable.ColumnCount-1; i++)
                 {
                     unitsAvailable();
                     inventory();
                 }
-                missingUnits();
+                missingUnitsCalculate();
                 SumCalculate();
 
                 //DgvCostMethods;
@@ -473,7 +481,7 @@ namespace Aggregate_Planing.Views
             }
         }
 
-        private void operatorsUsed()
+        private void operatorsUsedCalculate()
         {
             double operatorsUsed = 0;
             double actualOperators = 0;
@@ -491,7 +499,7 @@ namespace Aggregate_Planing.Views
                 
             }
         }
-        private void unitsProduced()
+        private void unitsProducedCalculate()
         {
             double unitsProduced = 0;
             double unitsPerOperator = 0;
@@ -562,7 +570,7 @@ namespace Aggregate_Planing.Views
             
         }
 
-        private void missingUnits()
+        private void missingUnitsCalculate()
         {
             double demand = 0;
             double unitsAvailable = 0;
@@ -852,19 +860,74 @@ namespace Aggregate_Planing.Views
 
         private void saveInitialTable()
         {
-            for (int i= 1; i<dgvInitialTable.ColumnCount; i++)
+            int rowCount = dgvInitialTable.Rows.Count;
+
+            for (int col = 1; col<dgvInitialTable.ColumnCount; col++) {
+
+                for (int row = 0; row <rowCount; row++)
+                {
+
+                    DataGridViewCell cell = dgvInitialTable.Rows[row].Cells[col];
+
+                    if (cell.Value != null && int.TryParse(cell.Value.ToString(), out int cellValue)) {
+
+                        switch (row)
+                        {
+
+                            case 0: WorkingDays = cellValue; break;
+                            case 1: Demand =cellValue; break;
+                            case 2: unitsPerOperator= cellValue; break;
+                            case 3: OperatorsRequired = cellValue; break;
+                            case 4: ActualOperators =cellValue; break;
+                            case 5: OperatorsHired = cellValue; break;
+                            case 6: laidOffOperators =cellValue; break;
+                            case 7: operatorsUsed =cellValue; break;
+                            case 8: unitsProduced = cellValue; break;
+                            case 9: unitsAvailble = cellValue; break;
+                            case 10: Inventory  = cellValue; break;
+                            case 11: missingUnits = cellValue; break;
+                            default: break;
+
+                            agreggationDetailController.Create(col,WorkingDays,Demand,unitsPerOperator,OperatorsRequired,ActualOperators,
+                                OperatorsHired,laidOffOperators,operatorsUsed,unitsProduced,unitsAvailble,Inventory,missingUnits);
+                        }
+                    }
+
+                }
+            }
+        }
+
+        private void SaveRequiredData()
+        {
+            int rowCount = dgvRequiredData.Rows.Count;
+
+            for (int row = 0; row < rowCount; row++)
             {
-                
-                
-                    WorkingDays = Convert.ToInt32(dgvInitialTable.Rows[0].Cells[i].Value);
-                    Demand = Convert.ToInt32(dgvInitialTable.Rows[1].Cells[i].Value);
-                    unitsPerOperator= Convert.ToInt32(dgvInitialTable.Rows[2].Cells[i].Value);
+                DataGridViewCell cell = dgvRequiredData.Rows[row].Cells[1];
 
+                if (cell.Value != null && int.TryParse(cell.Value.ToString(), out int cellValue)) 
+                {
 
+                    switch (row)
+                    {
+                        case 0: operatorAverage = cellValue; break;
+                        case 1: initialCurrentOperators = cellValue; break;
+                        case 2: dailyCosPerOver = cellValue; break;
+                        case 3: costOfHiring = cellValue; break;
+                        case 4: costOfDismissing = cellValue; break;
+                        case 5: costToStore = cellValue; break;
+                        case 6: shortageCost = cellValue; break;
+                        case 7: initialInventory = cellValue; break;
+                        case 8: hoursPerWeek = cellValue; break;
 
-            } 
+                        default: break;
+                    }
+                }
+            }
         }
     }
+}
+    
 
         
-}
+
