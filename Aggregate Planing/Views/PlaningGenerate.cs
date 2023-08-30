@@ -1,10 +1,10 @@
 ﻿using Aggregate_Planing.Controller;
 using Aggregate_Planing.Model;
+using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Data.Entity.Core.Common.CommandTrees.ExpressionBuilder;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -30,6 +30,7 @@ namespace Aggregate_Planing.Views
         private double initialInventory;
         private double hoursPerWeek;
         private bool validateIndicator;
+        private string planName;
         /*****************************************************/
         private int WorkingDays;
         private int Demand;
@@ -44,9 +45,21 @@ namespace Aggregate_Planing.Views
         private int Inventory;
         private int missingUnits;
 
-        private AgreggationDetailController agreggationDetailController;
+        /******************************************************/
+        /*** Detail Cost Values*************************/
 
-      
+        double costToHires;
+        double costToLayingOff;
+        double costToLabour;
+        double costToStoreDetail;
+        double costForShortage;
+
+
+        private AgreggationDetailController agreggationDetailController;
+        private AggreggationPlanController agreggationPlanController;
+        private AgregationDetailCostController agregationDetailCostController;
+        private SavePlanName spn;
+        public ManualResetEventSlim syncEvent = new ManualResetEventSlim(false);
 
         string[] months = new string[]{
         "Enero", "Febrero", "Marzo", "Abril", "Mayo",
@@ -89,6 +102,10 @@ namespace Aggregate_Planing.Views
         {
             this.initialMonth=initialMonth;
             this.finalMonth=finalMonth;
+            spn = new SavePlanName();
+            agreggationDetailController = new AgreggationDetailController();
+            agreggationPlanController = new AggreggationPlanController();
+            agregationDetailCostController = new AgregationDetailCostController();
             InitializeComponent();
             
         }
@@ -371,8 +388,8 @@ namespace Aggregate_Planing.Views
 
                 //DgvCostMethods;
                 costToHire();
-                costToLayingOff();
-                costToLabour();
+                costToLayingOffCalculate();
+                costToLabourCalculate();
                 CostToStore();
                 costForShortages();
                 TotalCostPlaning();
@@ -609,7 +626,7 @@ namespace Aggregate_Planing.Views
             }
         }
 
-        private void costToLayingOff()
+        private void costToLayingOffCalculate()
         {
             double operatorsDismiss=0;
             double costToLayingOff = 0;
@@ -624,7 +641,7 @@ namespace Aggregate_Planing.Views
             }
         }
 
-        private void costToLabour()
+        private void costToLabourCalculate()
         {
             double operatorsUsed = 0;
             double daysWork = 0;
@@ -855,7 +872,15 @@ namespace Aggregate_Planing.Views
 
         private void bntSave_Click(object sender, EventArgs e)
         {
+           //Open Form To Save The Plan Name
+            spn.ShowDialog();
+
+            
+
+
             saveInitialTable();
+            SaveRequiredData();
+            savePlanCostData();
         }
 
         private void saveInitialTable()
@@ -888,19 +913,21 @@ namespace Aggregate_Planing.Views
                             case 11: missingUnits = cellValue; break;
                             default: break;
 
-                            agreggationDetailController.Create(col,WorkingDays,Demand,unitsPerOperator,OperatorsRequired,ActualOperators,
-                                OperatorsHired,laidOffOperators,operatorsUsed,unitsProduced,unitsAvailble,Inventory,missingUnits);
+                           
                         }
+                      
                     }
 
                 }
+                agreggationDetailController.Create(col, WorkingDays, Demand, unitsPerOperator, OperatorsRequired, ActualOperators,
+                      OperatorsHired, laidOffOperators, operatorsUsed, unitsProduced, unitsAvailble, Inventory, missingUnits);
             }
         }
 
         private void SaveRequiredData()
         {
             int rowCount = dgvRequiredData.Rows.Count;
-
+            string planName = spn.planName;
             for (int row = 0; row < rowCount; row++)
             {
                 DataGridViewCell cell = dgvRequiredData.Rows[row].Cells[1];
@@ -922,7 +949,43 @@ namespace Aggregate_Planing.Views
 
                         default: break;
                     }
+
                 }
+            }
+            agreggationPlanController.Create(planName,operatorAverage, initialCurrentOperators, dailyCosPerOver, costOfHiring, costOfDismissing, costToStore, shortageCost, initialInventory,
+                        hoursPerWeek);
+        }
+
+        private void savePlanCostData()
+        {
+            int rowCount = dgvPlanCost.RowCount;
+
+            for (int col = 1; col < dgvPlanCost.ColumnCount; col++)
+            {
+                for (int  row = 0;  row< rowCount; row++)
+                {
+                    DataGridViewCell cell = dgvPlanCost.Rows[row].Cells[col];
+
+                    if(cell.Value != null && double.TryParse(cell.Value.ToString(), out double cellValue))
+                    {
+                        switch (row)
+                        {
+                            
+                            case 0: costToHires = cellValue; break;
+                            case 1: costToLayingOff = cellValue; break;
+                            case 2: costToLabour = cellValue; break;
+                            case 3: costToStore = cellValue; break;
+                            case 4: costForShortage = cellValue; break;
+
+                            default: break;
+                        }
+
+
+                    }
+
+                }
+                agregationDetailCostController.Create(costToHires,costToLayingOff,costToLabour,costToStore,costForShortage);
+
             }
         }
     }

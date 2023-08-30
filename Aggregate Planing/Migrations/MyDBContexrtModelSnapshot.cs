@@ -53,7 +53,7 @@ namespace Aggregate_Planing.Migrations
 
                     b.HasKey("AgregationDetailCostId");
 
-                    b.ToTable("AgreggationDetailsCosts");
+                    b.ToTable("AgreggationDetailsCosts", (string)null);
                 });
 
             modelBuilder.Entity("Aggregate_Planing.Model.AgreggationDetail", b =>
@@ -108,7 +108,7 @@ namespace Aggregate_Planing.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("AgreggationDetails");
+                    b.ToTable("AgreggationDetails", (string)null);
                 });
 
             modelBuilder.Entity("Aggregate_Planing.Model.AgreggationPlan", b =>
@@ -155,7 +155,7 @@ namespace Aggregate_Planing.Migrations
 
                     b.HasKey("idPlan");
 
-                    b.ToTable("AgreggationPlans");
+                    b.ToTable("AgreggationPlans", (string)null);
                 });
 
             modelBuilder.Entity("Aggregate_Planing.Model.Month", b =>
@@ -172,7 +172,7 @@ namespace Aggregate_Planing.Migrations
 
                     b.HasKey("idMonth");
 
-                    b.ToTable("Months");
+                    b.ToTable("Months", (string)null);
                 });
 #pragma warning restore 612, 618
         }

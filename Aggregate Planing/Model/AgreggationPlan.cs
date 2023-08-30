@@ -16,10 +16,10 @@ namespace Aggregate_Planing.Model
         public DateTime CreatedDateTime { get; set; }
 
         [Required]
-        public int operatorAverage { get; set; }
+        public double operatorAverage { get; set; }
 
         [Required]
-        public int initialCurrentOperators { get; set; }
+        public double  initialCurrentOperators { get; set; }
 
         [Required]
 
@@ -39,7 +39,7 @@ namespace Aggregate_Planing.Model
 
         [Required]
 
-        public int initialInventory { get; set; }
+        public double initialInventory { get; set; }
 
         [Required]
         public double hoursPerWeek { get; set; }
