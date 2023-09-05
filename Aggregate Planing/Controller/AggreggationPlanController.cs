@@ -11,7 +11,7 @@ namespace Aggregate_Planing.Controller
     public class AggreggationPlanController
     {
        public MyDBContexrt dbContext = new MyDBContexrt();
-        public void Create(string planName,double operatorAverage, double initialCurrentOperatos, double dailyCosPerOver, double costOfHiring, double costOfDismissing, double costToStore, double shortageCost,double initialInventory,
+        public int Create(string planName,double operatorAverage, double initialCurrentOperatos, double dailyCosPerOver, double costOfHiring, double costOfDismissing, double costToStore, double shortageCost,double initialInventory,
             double hoursPerWeek)
         {
             AgreggationPlan agreggationPlan = new AgreggationPlan();
@@ -30,6 +30,7 @@ namespace Aggregate_Planing.Controller
             dbContext.AgreggationPlans.Add(agreggationPlan);   
             dbContext.SaveChanges();
 
+            return agreggationPlan.idPlan;
         }
 
       

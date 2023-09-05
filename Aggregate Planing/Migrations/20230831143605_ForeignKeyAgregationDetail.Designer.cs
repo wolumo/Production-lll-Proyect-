@@ -4,6 +4,7 @@ using Aggregate_Planing.Conexion;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Aggregate_Planing.Migrations
 {
     [DbContext(typeof(MyDBContexrt))]
-    partial class MyDBContexrtModelSnapshot : ModelSnapshot
+    [Migration("20230831143605_ForeignKeyAgregationDetail")]
+    partial class ForeignKeyAgregationDetail
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -53,7 +56,7 @@ namespace Aggregate_Planing.Migrations
 
                     b.HasKey("AgregationDetailCostId");
 
-                    b.ToTable("AgreggationDetailsCosts", (string)null);
+                    b.ToTable("AgreggationDetailsCosts");
                 });
 
             modelBuilder.Entity("Aggregate_Planing.Model.AgreggationDetail", b =>
@@ -108,7 +111,7 @@ namespace Aggregate_Planing.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("AgreggationDetails", (string)null);
+                    b.ToTable("AgreggationDetails");
                 });
 
             modelBuilder.Entity("Aggregate_Planing.Model.AgreggationPlan", b =>
@@ -155,7 +158,7 @@ namespace Aggregate_Planing.Migrations
 
                     b.HasKey("idPlan");
 
-                    b.ToTable("AgreggationPlans", (string)null);
+                    b.ToTable("AgreggationPlans");
                 });
 
             modelBuilder.Entity("Aggregate_Planing.Model.Month", b =>
@@ -172,7 +175,7 @@ namespace Aggregate_Planing.Migrations
 
                     b.HasKey("idMonth");
 
-                    b.ToTable("Months", (string)null);
+                    b.ToTable("Months");
                 });
 #pragma warning restore 612, 618
         }

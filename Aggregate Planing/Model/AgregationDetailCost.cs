@@ -14,7 +14,7 @@ namespace Aggregate_Planing.Model
         public int AgregationDetailCostId { get; set; }
 
         [Required]
-        [ForeignKey("AgreggationPlans")]
+        [ForeignKey("idPlan")]
         public int idPlan { get; set; }
 
         [Required]

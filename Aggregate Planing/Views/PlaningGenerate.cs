@@ -1,6 +1,7 @@
 ﻿using Aggregate_Planing.Controller;
 using Aggregate_Planing.Model;
 using Microsoft.EntityFrameworkCore.ValueGeneration.Internal;
+using Microsoft.VisualStudio.PlatformUI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -54,12 +55,15 @@ namespace Aggregate_Planing.Views
         double costToStoreDetail;
         double costForShortage;
 
+        /*************************************************************/
 
         private AgreggationDetailController agreggationDetailController;
         private AggreggationPlanController agreggationPlanController;
         private AgregationDetailCostController agregationDetailCostController;
         private SavePlanName spn;
         public ManualResetEventSlim syncEvent = new ManualResetEventSlim(false);
+        private int IdPlan;
+
 
         string[] months = new string[]{
         "Enero", "Febrero", "Marzo", "Abril", "Mayo",
@@ -876,11 +880,12 @@ namespace Aggregate_Planing.Views
             spn.ShowDialog();
 
             
-
-
-            saveInitialTable();
+            
             SaveRequiredData();
+            saveInitialTable();
             savePlanCostData();
+
+            MessageBox.Show("Guardado!", "Se ha guardado Correctamente");
         }
 
         private void saveInitialTable()
@@ -919,7 +924,7 @@ namespace Aggregate_Planing.Views
                     }
 
                 }
-                agreggationDetailController.Create(col, WorkingDays, Demand, unitsPerOperator, OperatorsRequired, ActualOperators,
+                agreggationDetailController.Create(IdPlan,col, WorkingDays, Demand, unitsPerOperator, OperatorsRequired, ActualOperators,
                       OperatorsHired, laidOffOperators, operatorsUsed, unitsProduced, unitsAvailble, Inventory, missingUnits);
             }
         }
@@ -952,7 +957,8 @@ namespace Aggregate_Planing.Views
 
                 }
             }
-            agreggationPlanController.Create(planName,operatorAverage, initialCurrentOperators, dailyCosPerOver, costOfHiring, costOfDismissing, costToStore, shortageCost, initialInventory,
+           
+            IdPlan = agreggationPlanController.Create(planName,operatorAverage, initialCurrentOperators, dailyCosPerOver, costOfHiring, costOfDismissing, costToStore, shortageCost, initialInventory,
                         hoursPerWeek);
         }
 
@@ -984,7 +990,7 @@ namespace Aggregate_Planing.Views
                     }
 
                 }
-                agregationDetailCostController.Create(costToHires,costToLayingOff,costToLabour,costToStore,costForShortage);
+                agregationDetailCostController.Create(IdPlan,col,costToHires,costToLayingOff,costToLabour,costToStore,costForShortage);
 
             }
         }
