@@ -771,6 +771,7 @@ namespace Aggregate_Planing.Views
             dgvInitialTable.Rows.Clear();
             dgvPlanCost.Rows.Clear();
             dgvRequiredData.Rows.Clear();
+            CleanVariables();
             ChargeInitialDgv();
             ChargeRequiredDataDgv();
             ChargeCostDgv();
@@ -876,23 +877,31 @@ namespace Aggregate_Planing.Views
 
         private void bntSave_Click(object sender, EventArgs e)
         {
-           //Open Form To Save The Plan Name
-            spn.ShowDialog();
+            //Validate Null Spaces
+            ValidateNullSpaces();
+            if (validateIndicator)
+            {
 
-            
-            
-            SaveRequiredData();
-            saveInitialTable();
-            savePlanCostData();
 
-            MessageBox.Show("Guardado!", "Se ha guardado Correctamente");
+                //Open Form To Save The Plan Name
+                spn.ShowDialog();
+
+
+
+
+                SaveRequiredData();
+                saveInitialTable();
+                savePlanCostData();
+
+                MessageBox.Show("Guardado!", "Se ha guardado Correctamente");
+            }
         }
 
         private void saveInitialTable()
         {
             int rowCount = dgvInitialTable.Rows.Count;
 
-            for (int col = 1; col<dgvInitialTable.ColumnCount; col++) {
+            for (int col = 1; col<dgvInitialTable.ColumnCount-1; col++) {
 
                 for (int row = 0; row <rowCount; row++)
                 {
@@ -966,7 +975,7 @@ namespace Aggregate_Planing.Views
         {
             int rowCount = dgvPlanCost.RowCount;
 
-            for (int col = 1; col < dgvPlanCost.ColumnCount; col++)
+            for (int col = 1; col < dgvPlanCost.ColumnCount-1; col++)
             {
                 for (int  row = 0;  row< rowCount; row++)
                 {
@@ -994,6 +1003,46 @@ namespace Aggregate_Planing.Views
 
             }
         }
+
+        private void CleanVariables()
+        {
+        
+
+        /** Required Data Values *****/
+         operatorAverage =0.0;
+         initialCurrentOperators =0.0;
+         dailyCosPerOver =0.0;
+         costOfHiring =0.0;
+         costOfDismissing =0.0;
+         costToStore =0.0;
+         shortageCost =0.0;
+         initialInventory =0.0;
+         hoursPerWeek =0.0;
+       
+         planName ="";
+        /*****************************************************/
+         WorkingDays =0;
+         Demand =0;
+         unitsPerOperator =0;
+         OperatorsRequired =0;
+         ActualOperators =0;
+         OperatorsHired =0;
+         laidOffOperators =0;
+         operatorsUsed =0;
+         unitsProduced =0;
+         unitsAvailble =0;
+         Inventory =0;
+         missingUnits =0;
+
+        /******************************************************/
+        /*** Detail Cost Values*************************/
+
+         costToHires = 0.0;
+         costToLayingOff = 0.0;
+         costToLabour = 0.0;
+         costToStoreDetail = 0.0;
+         costForShortage = 0.0;
+    }
     }
 }
     
