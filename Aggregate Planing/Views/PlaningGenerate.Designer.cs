@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.dgvInitialTable = new System.Windows.Forms.DataGridView();
             this.dgvPlanCost = new System.Windows.Forms.DataGridView();
             this.btnCalculate = new System.Windows.Forms.Button();
@@ -53,6 +55,7 @@
             // 
             this.dgvInitialTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvInitialTable.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvInitialTable.GridColor = System.Drawing.SystemColors.ActiveCaption;
             this.dgvInitialTable.Location = new System.Drawing.Point(3, 3);
             this.dgvInitialTable.Name = "dgvInitialTable";
             this.dgvInitialTable.RowTemplate.Height = 25;
@@ -66,6 +69,7 @@
             // 
             this.dgvPlanCost.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvPlanCost.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvPlanCost.GridColor = System.Drawing.SystemColors.ActiveCaption;
             this.dgvPlanCost.Location = new System.Drawing.Point(3, 29);
             this.dgvPlanCost.Name = "dgvPlanCost";
             this.dgvPlanCost.RowTemplate.Height = 25;
@@ -97,9 +101,26 @@
             // dgvRequiredData
             // 
             this.dgvRequiredData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvRequiredData.DefaultCellStyle = dataGridViewCellStyle1;
             this.dgvRequiredData.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvRequiredData.GridColor = System.Drawing.SystemColors.ActiveCaption;
             this.dgvRequiredData.Location = new System.Drawing.Point(3, 3);
             this.dgvRequiredData.Name = "dgvRequiredData";
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvRequiredData.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvRequiredData.RowTemplate.Height = 25;
             this.dgvRequiredData.Size = new System.Drawing.Size(551, 383);
             this.dgvRequiredData.TabIndex = 1;
@@ -184,6 +205,8 @@
             // 
             // bntSave
             // 
+            this.bntSave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.bntSave.Location = new System.Drawing.Point(3, 46);
             this.bntSave.Name = "bntSave";
             this.bntSave.Size = new System.Drawing.Size(269, 45);

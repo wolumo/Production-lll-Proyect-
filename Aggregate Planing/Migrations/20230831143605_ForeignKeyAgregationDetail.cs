@@ -34,7 +34,7 @@ namespace Aggregate_Planing.Migrations
                 oldClrType: typeof(int),
                 oldType: "int");
 
-            migrationBuilder.AddForeignKey("fk_idPlan","AgreggationDetails", "idPlan", "AgreggationPlans");
+          //  migrationBuilder.AddForeignKey("fk_idPlan","AgreggationDetails", "idPlan", "AgreggationPlans");
         }
 
         /// <inheritdoc />
@@ -64,7 +64,7 @@ namespace Aggregate_Planing.Migrations
                 oldClrType: typeof(double),
                 oldType: "float");
 
-            migrationBuilder.DropForeignKey("fk_idPlan", "AgreggationDetails", "idPlan");
+           // migrationBuilder.DropForeignKey("fk_idPlan", "AgreggationDetails", "idPlan");
 
         }
 

@@ -884,16 +884,17 @@ namespace Aggregate_Planing.Views
 
 
                 //Open Form To Save The Plan Name
-                spn.ShowDialog();
+               DialogResult result = spn.ShowDialog();
 
 
+                if (result == DialogResult.OK)
+                {
+                    SaveRequiredData();
+                    saveInitialTable();
+                    savePlanCostData();
 
-
-                SaveRequiredData();
-                saveInitialTable();
-                savePlanCostData();
-
-                MessageBox.Show("Guardado!", "Se ha guardado Correctamente");
+                    MessageBox.Show("Guardado!", "Se ha guardado Correctamente");
+                }
             }
         }
 

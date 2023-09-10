@@ -28,52 +28,52 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1=new Label();
-            txtNombre=new TextBox();
-            button1=new Button();
-            SuspendLayout();
+            this.label1 = new System.Windows.Forms.Label();
+            this.txtNombre = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.SuspendLayout();
             // 
             // label1
             // 
-            label1.AutoSize=true;
-            label1.Font=new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            label1.Location=new Point(24, 23);
-            label1.Name="label1";
-            label1.Size=new Size(77, 21);
-            label1.TabIndex=0;
-            label1.Text="Nombre:";
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(24, 23);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(77, 21);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Nombre:";
             // 
             // txtNombre
             // 
-            txtNombre.Location=new Point(107, 25);
-            txtNombre.Name="txtNombre";
-            txtNombre.Size=new Size(495, 23);
-            txtNombre.TabIndex=1;
+            this.txtNombre.Location = new System.Drawing.Point(107, 25);
+            this.txtNombre.Name = "txtNombre";
+            this.txtNombre.Size = new System.Drawing.Size(495, 23);
+            this.txtNombre.TabIndex = 1;
             // 
             // button1
             // 
-            button1.Font=new Font("Segoe UI Semibold", 9F, FontStyle.Bold, GraphicsUnit.Point);
-            button1.Location=new Point(527, 54);
-            button1.Name="button1";
-            button1.Size=new Size(75, 23);
-            button1.TabIndex=2;
-            button1.Text="Guardar";
-            button1.UseVisualStyleBackColor=true;
-            button1.Click+=button1_Click;
+            this.button1.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.button1.Location = new System.Drawing.Point(527, 54);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "Guardar";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click_1);
             // 
             // SavePlanName
             // 
-            AutoScaleDimensions=new SizeF(7F, 15F);
-            AutoScaleMode=AutoScaleMode.Font;
-            ClientSize=new Size(614, 92);
-            Controls.Add(button1);
-            Controls.Add(txtNombre);
-            Controls.Add(label1);
-            Name="SavePlanName";
-            Text="SavePlanNanme";
-            Load+=SavePlanName_Load;
-            ResumeLayout(false);
-            PerformLayout();
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(614, 92);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.txtNombre);
+            this.Controls.Add(this.label1);
+            this.Name = "SavePlanName";
+            this.Text = "SavePlanNanme";
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
         }
 
         #endregion
