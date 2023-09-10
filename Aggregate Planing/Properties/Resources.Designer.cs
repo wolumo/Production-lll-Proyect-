@@ -63,6 +63,36 @@ namespace Aggregate_Planing.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap cerrar__2_ {
+            get {
+                object obj = ResourceManager.GetObject("cerrar (2)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap maximizar {
+            get {
+                object obj = ResourceManager.GetObject("maximizar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap minimizar_signo {
+            get {
+                object obj = ResourceManager.GetObject("minimizar-signo", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap plan_estrategico {
             get {
                 object obj = ResourceManager.GetObject("plan-estrategico", resourceCulture);
@@ -76,6 +106,16 @@ namespace Aggregate_Planing.Properties {
         internal static System.Drawing.Bitmap plan_estrategico1 {
             get {
                 object obj = ResourceManager.GetObject("plan-estrategico1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Programa_De_Planeación_Agregada {
+            get {
+                object obj = ResourceManager.GetObject("Programa De Planeación Agregada", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
