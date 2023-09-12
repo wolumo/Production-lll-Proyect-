@@ -36,5 +36,17 @@ namespace Aggregate_Planing.Controller
             dBContext.SaveChanges();
 
         }
+
+        public int getLastMonth(int idPlan)
+        {
+            var lastMonth = dBContext.AgreggationDetails.Where(ad => ad.idPlan == idPlan).OrderByDescending(ad => ad.idMonth).Select(ad => ad.idMonth).FirstOrDefault();
+            return lastMonth;
+        }
+
+        public int getInitialMonth(int idPlan)
+        {
+            var initialMonth = dBContext.AgreggationDetails.Where(ad => ad.idPlan == idPlan).Select(ad => ad.idMonth).FirstOrDefault();
+            return initialMonth;
+        }
     }
 }

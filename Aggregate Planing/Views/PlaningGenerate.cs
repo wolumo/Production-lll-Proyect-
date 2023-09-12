@@ -63,6 +63,7 @@ namespace Aggregate_Planing.Views
         private SavePlanName spn;
         public ManualResetEventSlim syncEvent = new ManualResetEventSlim(false);
         private int IdPlan;
+        private int opcCase;
 
 
         string[] months = new string[]{
@@ -112,6 +113,25 @@ namespace Aggregate_Planing.Views
             agregationDetailCostController = new AgregationDetailCostController();
             InitializeComponent();
             
+        }
+
+       public void PlanningCase(int id, int opcCase)
+        {
+            this.opcCase = opcCase; 
+            if(opcCase ==1)
+            {
+                //Logical edit here
+                AgreggationDetailController AGD = new AgreggationDetailController();
+                this.initialMonth = AGD.getInitialMonth(id);
+                this.finalMonth = AGD.getLastMonth(id);
+               
+
+            }
+            if(opcCase ==2)
+            {
+                //Logical read here
+
+            }
         }
 
         private void PlaningGenerate_Load(object sender, EventArgs e)

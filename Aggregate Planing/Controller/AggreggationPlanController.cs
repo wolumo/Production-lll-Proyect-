@@ -17,6 +17,7 @@ namespace Aggregate_Planing.Controller
             AgreggationPlan agreggationPlan = new AgreggationPlan();
 
             agreggationPlan.NamePlan = planName;
+            agreggationPlan.CreatedDateTime = DateTime.Now;
             agreggationPlan.operatorAverage = operatorAverage;
             agreggationPlan.initialCurrentOperators = initialCurrentOperatos;
             agreggationPlan.dailyCosPerOver = dailyCosPerOver;

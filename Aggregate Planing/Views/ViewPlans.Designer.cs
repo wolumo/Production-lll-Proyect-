@@ -79,6 +79,7 @@
             this.dgvPlans.RowTemplate.Height = 25;
             this.dgvPlans.Size = new System.Drawing.Size(800, 396);
             this.dgvPlans.TabIndex = 0;
+            this.dgvPlans.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvPlans_CellClick);
             // 
             // myDBContexrtBindingSource
             // 

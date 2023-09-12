@@ -14,7 +14,7 @@ namespace Aggregate_Planing.Views
     {
      
         public string planName { get; set; }
-        public PlaningGenerate planingGenerate = new PlaningGenerate();
+  
         
         public SavePlanName()
         {
@@ -22,20 +22,7 @@ namespace Aggregate_Planing.Views
             // syncEvent = planingGenerate.syncEvent;
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            if (txtNombre.Text.Equals(""))
-            {
-                MessageBox.Show("Tiene que insertar un nombre del plan!");
-                return;
-            }
-            else
-            {
-                planName = txtNombre.Text;
-                this.DialogResult = DialogResult.OK;
-                this.Close();
-            }
-        }
+    
 
         public string getNamePlan()
         {
@@ -49,7 +36,17 @@ namespace Aggregate_Planing.Views
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-
+            if (txtNombre.Text.Equals(""))
+            {
+                MessageBox.Show("Tiene que insertar un nombre del plan!");
+                return;
+            }
+            else
+            {
+                planName = txtNombre.Text;
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
         }
     }
 }
