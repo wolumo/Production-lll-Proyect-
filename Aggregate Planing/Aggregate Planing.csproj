@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Properties\DataSources\" />
     <Folder Include="Resources\Images\" />
   </ItemGroup>
 

@@ -33,6 +33,9 @@ namespace Aggregate_Planing.Controller
             return agreggationPlan.idPlan;
         }
 
-      
+      public List<AgreggationPlan> showPlans()
+        {
+            return dbContext.AgreggationPlans.ToList();
+        }
     }
 }

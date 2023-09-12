@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TextManager.Interop;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -14,11 +16,16 @@ namespace Aggregate_Planing.Views
     public partial class InitialCatalog : Form
     {
         private Form activeForm;
+      
         public InitialCatalog()
         {
             InitializeComponent();
+            this.Text = String.Empty;
+         
+       
         }
 
+        
         private void InitialCatalog_Load(object sender, EventArgs e)
         {
 
@@ -54,26 +61,10 @@ namespace Aggregate_Planing.Views
             dateSelector.Show();
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-            Application.Exit();
-        }
-
-        private void pictureBox3_Click(object sender, EventArgs e)
-        {
-            if(WindowState == FormWindowState.Normal)
-            {
-                this.WindowState = FormWindowState.Maximized;
-            }
-            else
-            {
-                this.WindowState = FormWindowState.Normal;  
-            }
-        }
-
-        private void pictureBox4_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
+            ViewPlans viewPlans = new ViewPlans();  
+            viewPlans.Show();
         }
     }
 }
