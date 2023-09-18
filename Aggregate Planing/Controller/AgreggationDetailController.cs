@@ -1,4 +1,5 @@
 ﻿using Aggregate_Planing.Conexion;
+using Aggregate_Planing.Migrations;
 using Aggregate_Planing.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -48,5 +49,27 @@ namespace Aggregate_Planing.Controller
             var initialMonth = dBContext.AgreggationDetails.Where(ad => ad.idPlan == idPlan).Select(ad => ad.idMonth).FirstOrDefault();
             return initialMonth;
         }
+
+
+
+        public List<int> GetPropertyValues(int idPlan, string propertyName)
+        {
+
+            var resultado = dBContext.AgreggationDetails
+            .Where(detalle => detalle.idPlan == idPlan)
+            .OrderBy(detalle => detalle.idMonth)
+            .Select(detalle => detalle.GetType().GetProperty(propertyName).GetValue(detalle, null)).ToList();
+
+
+            var resultadoComoInt = resultado.Select(valor => Convert.ToInt32(valor)).ToList();
+
+
+
+
+            return resultadoComoInt;
+        }
+
+
+
     }
 }

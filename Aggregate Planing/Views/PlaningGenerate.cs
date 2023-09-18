@@ -124,13 +124,36 @@ namespace Aggregate_Planing.Views
                 AgreggationDetailController AGD = new AgreggationDetailController();
                 this.initialMonth = AGD.getInitialMonth(id);
                 this.finalMonth = AGD.getLastMonth(id);
-               
-
+                this.Show();
+                chargeInitialDgvStoredData(id);
+                btnClean.Enabled = false;
             }
             if(opcCase ==2)
             {
                 //Logical read here
 
+            }
+        }
+
+        private void chargeInitialDgvStoredData(int idPlan)
+        {
+            agreggationDetailController = new AgreggationDetailController();
+            List<int> workingDaysList = agreggationDetailController.GetPropertyValues(idPlan,"WorkingDays");
+            List<int> Demand = agreggationDetailController.GetPropertyValues(idPlan, "Demand");
+            List<int> RequiredOperators = agreggationDetailController.GetPropertyValues(idPlan, "RequiredOperators");
+            List<int> UnitPerOperador = agreggationDetailController.GetPropertyValues(idPlan, "UnitPerOperador");
+            List<int> actualOperators = agreggationDetailController.GetPropertyValues(idPlan, "actualOperators");
+            List<int> inventory = agreggationDetailController.GetPropertyValues(idPlan, "inventory");
+            List<int> missingUnits = agreggationDetailController.GetPropertyValues(idPlan, "missingUnits");
+            List<int> operatorsOff = agreggationDetailController.GetPropertyValues(idPlan, "operatorsOff");
+            List<int> operatorsUsed = agreggationDetailController.GetPropertyValues(idPlan, "operatorsUsed");
+            List<int> operatorsHired = agreggationDetailController.GetPropertyValues(idPlan, "opertorsHired");
+            List<int> unitsAvailable = agreggationDetailController.GetPropertyValues(idPlan, "unitsAvailable");
+            List<int> unitsProduced = agreggationDetailController.GetPropertyValues(idPlan, "unitsProduced");
+
+            for(int i = 0; i<Demand.Count; i++)
+            {
+                dgvInitialTable.Rows[0].Cells[i+1].Value = Demand[0];
             }
         }
 

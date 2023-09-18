@@ -92,7 +92,8 @@ namespace Aggregate_Planing.Views
                     int id = (int)dgvPlans.Rows[e.RowIndex].Cells[0].Value;
                     PlaningGenerate planingGenerate = new PlaningGenerate();
                     planingGenerate.PlanningCase(id, caseOpc);
-                    planingGenerate.Show();
+                   
+                  
 
 
                 }
