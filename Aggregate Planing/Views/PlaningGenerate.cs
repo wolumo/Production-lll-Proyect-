@@ -65,6 +65,7 @@ namespace Aggregate_Planing.Views
         private int IdPlan;
         private int opcCase;
 
+        List<int> monthIndexes = new List<int>();
 
         string[] months = new string[]{
         "Enero", "Febrero", "Marzo", "Abril", "Mayo",
@@ -151,14 +152,36 @@ namespace Aggregate_Planing.Views
             List<int> unitsAvailable = agreggationDetailController.GetPropertyValues(idPlan, "unitsAvailable");
             List<int> unitsProduced = agreggationDetailController.GetPropertyValues(idPlan, "unitsProduced");
 
-            for(int i = 0; i<Demand.Count; i++)
+            //Filling the table 
+
+            FillTableWithData(dgvInitialTable,workingDaysList, 0);
+            FillTableWithData(dgvInitialTable, Demand, 1);
+            FillTableWithData(dgvInitialTable, UnitPerOperador, 2);
+            FillTableWithData(dgvInitialTable,RequiredOperators,3);
+            FillTableWithData(dgvInitialTable,actualOperators,4);
+            FillTableWithData(dgvInitialTable,operatorsHired,5);
+            FillTableWithData(dgvInitialTable, operatorsOff, 6);
+            FillTableWithData(dgvInitialTable,operatorsUsed,7);
+            FillTableWithData(dgvInitialTable,unitsProduced,8);
+            FillTableWithData(dgvInitialTable,unitsAvailable, 9);
+            FillTableWithData(dgvInitialTable, inventory, 10);
+            FillTableWithData(dgvInitialTable, missingUnits, 11);
+
+
+        }
+
+        private void FillTableWithData (DataGridView dgv, List<int> data, int row)
+        {
+            for (int i = 1; i < data.Count; i++) 
             {
-                dgvInitialTable.Rows[0].Cells[i+1].Value = Demand[0];
+                dgv.Rows[row].Cells[i+1].Value = data[i];
+
             }
         }
 
         private void PlaningGenerate_Load(object sender, EventArgs e)
         {
+            SetMonthIdexes();
             ChargeInitialDgv();
             ChargeRequiredDataDgv();
             ChargeCostDgv();
@@ -171,6 +194,14 @@ namespace Aggregate_Planing.Views
            
         }
 
+        private void SetMonthIdexes()
+        {
+
+            for (int i = initialMonth; i <= finalMonth; i++)
+            {
+                monthIndexes.Add(i+1);
+            }
+        }
         private void ChargeInitialDgv()
         {
             
@@ -179,7 +210,7 @@ namespace Aggregate_Planing.Views
                 dgvInitialTable.ColumnCount = (finalMonth-initialMonth) +3; //esta bien 
                 dgvInitialTable.Columns[0].Name = "Datos";
                 for (int i = initialMonth; i <=finalMonth; i++)
-                {
+                {   
                     string month = months[i];
                     dgvInitialTable.Columns[i -initialMonth+1].Name = month;
                 }
@@ -977,7 +1008,7 @@ namespace Aggregate_Planing.Views
                     }
 
                 }
-                agreggationDetailController.Create(IdPlan,col, WorkingDays, Demand, unitsPerOperator, OperatorsRequired, ActualOperators,
+                agreggationDetailController.Create(IdPlan, monthIndexes[col-1], WorkingDays, Demand, unitsPerOperator, OperatorsRequired, ActualOperators,
                       OperatorsHired, laidOffOperators, operatorsUsed, unitsProduced, unitsAvailble, Inventory, missingUnits);
             }
         }
