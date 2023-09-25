@@ -123,8 +123,8 @@ namespace Aggregate_Planing.Views
             {
                 //Logical edit here
                 AgreggationDetailController AGD = new AgreggationDetailController();
-                this.initialMonth = AGD.getInitialMonth(id);
-                this.finalMonth = AGD.getLastMonth(id);
+                this.initialMonth = AGD.getInitialMonth(id)-1;
+                this.finalMonth = AGD.getLastMonth(id)-1;
                 this.Show();
                 chargeInitialDgvStoredData(id);
                 btnClean.Enabled = false;
@@ -174,7 +174,7 @@ namespace Aggregate_Planing.Views
         {
             for (int i = 1; i < data.Count; i++) 
             {
-                dgv.Rows[row].Cells[i+1].Value = data[i];
+                dgv.Rows[row].Cells[i].Value = data[i];
 
             }
         }
@@ -197,7 +197,7 @@ namespace Aggregate_Planing.Views
         private void SetMonthIdexes()
         {
 
-            for (int i = initialMonth; i <= finalMonth; i++)
+            for (int i = initialMonth;  i <= finalMonth; i++)
             {
                 monthIndexes.Add(i+1);
             }
@@ -205,6 +205,10 @@ namespace Aggregate_Planing.Views
         private void ChargeInitialDgv()
         {
             
+            
+                
+            
+
             if (initialMonth <= finalMonth)
             {
                 dgvInitialTable.ColumnCount = (finalMonth-initialMonth) +3; //esta bien 
@@ -1074,7 +1078,7 @@ namespace Aggregate_Planing.Views
                     }
 
                 }
-                agregationDetailCostController.Create(IdPlan,col,costToHires,costToLayingOff,costToLabour,costToStore,costForShortage);
+                agregationDetailCostController.Create(IdPlan, monthIndexes[col-1], costToHires,costToLayingOff,costToLabour,costToStore,costForShortage);
 
             }
         }
