@@ -108,10 +108,7 @@ namespace Aggregate_Planing.Views
         {
             this.initialMonth=initialMonth;
             this.finalMonth=finalMonth;
-            spn = new SavePlanName();
-            agreggationDetailController = new AgreggationDetailController();
-            agreggationPlanController = new AggreggationPlanController();
-            agregationDetailCostController = new AgregationDetailCostController();
+      
             InitializeComponent();
             
         }
@@ -125,8 +122,11 @@ namespace Aggregate_Planing.Views
                 AgreggationDetailController AGD = new AgreggationDetailController();
                 this.initialMonth = AGD.getInitialMonth(id)-1;
                 this.finalMonth = AGD.getLastMonth(id)-1;
+                this.IdPlan = id;
                 this.Show();
                 chargeInitialDgvStoredData(id);
+                chargeCostDgvStoredData(id);
+                chargeRequeridedData(id);
                 btnClean.Enabled = false;
             }
             if(opcCase ==2)
@@ -136,6 +136,53 @@ namespace Aggregate_Planing.Views
             }
         }
 
+        private void chargeRequeridedData (int idPlan)
+        {
+            agreggationPlanController = new AggreggationPlanController();
+
+            List<double> operatorAverage = agreggationPlanController.GetPropertyValues(idPlan, "operatorAverage");
+            List<double> initialCurrentOperators = agreggationPlanController.GetPropertyValues(idPlan, "initialCurrentOperators");
+            List<double> dailyCosPerOver = agreggationPlanController.GetPropertyValues(idPlan, "dailyCosPerOver");
+            List<double> costOfHiring = agreggationPlanController.GetPropertyValues(idPlan, "costOfHiring");
+            List<double> costOfDismissing = agreggationPlanController.GetPropertyValues(idPlan, "costOfDismissing");
+            List<double> costToStore = agreggationPlanController.GetPropertyValues(idPlan, "costToStore");
+            List<double> shortageCost = agreggationPlanController.GetPropertyValues(idPlan, "shortageCost");
+            List<double> initialInventory = agreggationPlanController.GetPropertyValues(idPlan, "initialInventory");
+            List<double> hoursPerWeek = agreggationPlanController.GetPropertyValues(idPlan, "hoursPerWeek");
+
+            FillTableWithDataDouble(dgvRequiredData,operatorAverage,0);
+            FillTableWithDataDouble(dgvRequiredData, initialCurrentOperators, 1);
+            FillTableWithDataDouble(dgvRequiredData, dailyCosPerOver, 2);
+            FillTableWithDataDouble(dgvRequiredData, costOfHiring, 3);
+            FillTableWithDataDouble(dgvRequiredData, costOfDismissing, 4);
+            FillTableWithDataDouble(dgvRequiredData, costToStore, 5);
+            FillTableWithDataDouble(dgvRequiredData, shortageCost, 6);
+            FillTableWithDataDouble(dgvRequiredData, initialInventory, 7);
+            FillTableWithDataDouble(dgvRequiredData, hoursPerWeek, 8);
+
+
+
+        }
+        private void chargeCostDgvStoredData (int idPlan)
+        {
+            agregationDetailCostController = new AgregationDetailCostController();
+            List<double> costToHires = agregationDetailCostController.GetPropertyValues(idPlan,"costToHires");
+            List<double> costToLayingOff = agregationDetailCostController.GetPropertyValues(idPlan, "costTolayingOff");
+            List<double> costToLabour = agregationDetailCostController.GetPropertyValues(idPlan, "costToLabour");
+            List<double> costToStore = agregationDetailCostController.GetPropertyValues(idPlan, "costToStore");
+            List<double> costForShortage = agregationDetailCostController.GetPropertyValues(idPlan, "costForShortages");
+
+            FillTableWithDataDouble(dgvPlanCost,costToHires,0);
+            FillTableWithDataDouble(dgvPlanCost, costToLayingOff, 1);
+            FillTableWithDataDouble(dgvPlanCost, costToLabour, 2);
+            FillTableWithDataDouble(dgvPlanCost,costToStore,3);
+            FillTableWithDataDouble(dgvPlanCost,costForShortage,4);
+
+
+            TotalCostPlaning();
+            SumCalculateCost();
+           
+        }
         private void chargeInitialDgvStoredData(int idPlan)
         {
             agreggationDetailController = new AgreggationDetailController();
@@ -154,33 +201,45 @@ namespace Aggregate_Planing.Views
 
             //Filling the table 
 
-            FillTableWithData(dgvInitialTable,workingDaysList, 0);
-            FillTableWithData(dgvInitialTable, Demand, 1);
-            FillTableWithData(dgvInitialTable, UnitPerOperador, 2);
-            FillTableWithData(dgvInitialTable,RequiredOperators,3);
-            FillTableWithData(dgvInitialTable,actualOperators,4);
-            FillTableWithData(dgvInitialTable,operatorsHired,5);
-            FillTableWithData(dgvInitialTable, operatorsOff, 6);
-            FillTableWithData(dgvInitialTable,operatorsUsed,7);
-            FillTableWithData(dgvInitialTable,unitsProduced,8);
-            FillTableWithData(dgvInitialTable,unitsAvailable, 9);
-            FillTableWithData(dgvInitialTable, inventory, 10);
-            FillTableWithData(dgvInitialTable, missingUnits, 11);
+            FillTableWithDataInt(dgvInitialTable,workingDaysList, 0);
+            FillTableWithDataInt(dgvInitialTable, Demand, 1);
+            FillTableWithDataInt(dgvInitialTable, UnitPerOperador, 2);
+            FillTableWithDataInt(dgvInitialTable,RequiredOperators,3);
+            FillTableWithDataInt(dgvInitialTable,actualOperators,4);
+            FillTableWithDataInt(dgvInitialTable,operatorsHired,5);
+            FillTableWithDataInt(dgvInitialTable, operatorsOff, 6);
+            FillTableWithDataInt(dgvInitialTable,operatorsUsed,7);
+            FillTableWithDataInt(dgvInitialTable,unitsProduced,8);
+            FillTableWithDataInt(dgvInitialTable,unitsAvailable, 9);
+            FillTableWithDataInt(dgvInitialTable, inventory, 10);
+            FillTableWithDataInt(dgvInitialTable, missingUnits, 11);
 
-
+            SumCalculate();
         }
 
-        private void FillTableWithData (DataGridView dgv, List<int> data, int row)
+        private void FillTableWithDataInt (DataGridView dgv, List<int> data, int row)
         {
-            for (int i = 1; i < data.Count; i++) 
+            for (int i = 1; i <= data.Count; i++) 
             {
-                dgv.Rows[row].Cells[i].Value = data[i];
+                dgv.Rows[row].Cells[i].Value = data[i-1];
 
+            }
+        }
+
+        private void FillTableWithDataDouble (DataGridView dgv,List<double> data, int row)
+        {
+            for(int i = 1; i <= data.Count; i++)
+            {
+                dgv.Rows[row].Cells[i].Value = data[i-1];
             }
         }
 
         private void PlaningGenerate_Load(object sender, EventArgs e)
         {
+            spn = new SavePlanName();
+            agreggationDetailController = new AgreggationDetailController();
+            agreggationPlanController = new AggreggationPlanController();
+            agregationDetailCostController = new AgregationDetailCostController();
             SetMonthIdexes();
             ChargeInitialDgv();
             ChargeRequiredDataDgv();
@@ -1012,8 +1071,19 @@ namespace Aggregate_Planing.Views
                     }
 
                 }
-                agreggationDetailController.Create(IdPlan, monthIndexes[col-1], WorkingDays, Demand, unitsPerOperator, OperatorsRequired, ActualOperators,
-                      OperatorsHired, laidOffOperators, operatorsUsed, unitsProduced, unitsAvailble, Inventory, missingUnits);
+             
+
+                if(opcCase == 1) //Its Editing
+                {
+                    agreggationDetailController.Edit(IdPlan, monthIndexes[col-1], WorkingDays,Demand,unitsPerOperator,OperatorsRequired,ActualOperators,OperatorsHired,
+                        laidOffOperators,operatorsUsed,unitsProduced,unitsAvailble,Inventory, missingUnits);
+                }
+                else
+                {
+                    agreggationDetailController.Create(IdPlan, monthIndexes[col-1], WorkingDays, Demand, unitsPerOperator, OperatorsRequired, ActualOperators,
+                   OperatorsHired, laidOffOperators, operatorsUsed, unitsProduced, unitsAvailble, Inventory, missingUnits);
+                }
+
             }
         }
 
@@ -1045,9 +1115,16 @@ namespace Aggregate_Planing.Views
 
                 }
             }
-           
-            IdPlan = agreggationPlanController.Create(planName,operatorAverage, initialCurrentOperators, dailyCosPerOver, costOfHiring, costOfDismissing, costToStore, shortageCost, initialInventory,
-                        hoursPerWeek);
+            if (opcCase ==1)
+            {
+                agreggationPlanController.Edit(IdPlan, planName, operatorAverage, initialCurrentOperators, dailyCosPerOver, costOfHiring, costOfDismissing, costToStore, shortageCost, initialInventory,
+                    hoursPerWeek);
+            }
+            else
+            {
+                IdPlan = agreggationPlanController.Create(planName, operatorAverage, initialCurrentOperators, dailyCosPerOver, costOfHiring, costOfDismissing, costToStore, shortageCost, initialInventory,
+                            hoursPerWeek);
+            }
         }
 
         private void savePlanCostData()
@@ -1078,8 +1155,14 @@ namespace Aggregate_Planing.Views
                     }
 
                 }
-                agregationDetailCostController.Create(IdPlan, monthIndexes[col-1], costToHires,costToLayingOff,costToLabour,costToStore,costForShortage);
-
+                if (opcCase ==1)
+                {
+                    agregationDetailCostController.Edit(IdPlan, monthIndexes[col-1], costToHires, costToLayingOff, costToLabour, costToStore, costForShortage);
+                }
+                else
+                {
+                    agregationDetailCostController.Create(IdPlan, monthIndexes[col-1], costToHires, costToLayingOff, costToLabour, costToStore, costForShortage);
+                }
             }
         }
 

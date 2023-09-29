@@ -38,6 +38,29 @@ namespace Aggregate_Planing.Controller
 
         }
 
+        public void Edit(int idPlan, int idMonth, int WorkingDays, int Demand , int UnitPerOperador,int RequiredOperators, int actualOperators, int operatorsHired, int operatorsOff, int operatorsUsed,
+            int unitsProduced, int unitsAvailable, int inventory, int missingUnits)
+        {
+            AgreggationDetail agreggationDetail = dBContext.AgreggationDetails.FirstOrDefault(d => d.idPlan == idPlan && d.idMonth == idMonth);
+
+            if(agreggationDetail != null)
+            {
+                agreggationDetail.WorkingDays = WorkingDays;
+                agreggationDetail.Demand = Demand;
+                agreggationDetail.UnitPerOperador = UnitPerOperador;    
+                agreggationDetail.RequiredOperators = RequiredOperators;
+                agreggationDetail.actualOperators = actualOperators;
+                agreggationDetail.opertorsHired = operatorsHired;
+                agreggationDetail.unitsProduced = unitsProduced;
+                agreggationDetail.unitsAvailable = unitsAvailable;
+                agreggationDetail.inventory = inventory;
+                agreggationDetail.missingUnits = missingUnits;
+
+                dBContext.SaveChanges();
+
+            }
+        }
+
         public int getLastMonth(int idPlan)
         {
             var lastMonth = dBContext.AgreggationDetails.Where(ad => ad.idPlan == idPlan).OrderByDescending(ad => ad.idMonth).Select(ad => ad.idMonth).FirstOrDefault();

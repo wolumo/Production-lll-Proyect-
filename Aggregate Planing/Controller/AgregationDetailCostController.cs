@@ -35,5 +35,34 @@ namespace Aggregate_Planing.Controller
 
         }
 
+        public void Edit(int idPlan, int idMonth,double costToHires, double costToLayingOff,double costToLabour, double costToStore, double costForShortage)
+        {
+            AgregationDetailCost agregationDetailCost = dbContext.AgreggationDetailsCosts.FirstOrDefault(d => d.idPlan == idPlan && d.idMonth == idMonth);
+
+            if(agregationDetailCost != null)
+            {
+                agregationDetailCost.idMonth=idMonth;
+                agregationDetailCost.costToHires = costToHires;
+                agregationDetailCost.costTolayingOff = costToLayingOff;
+                agregationDetailCost.costToLabour = costToLabour;
+                agregationDetailCost.costToStore = costToStore;
+                agregationDetailCost.costForShortages= costForShortage;
+
+                dbContext.SaveChanges(); 
+            }
+
+        }
+        
+
+        public List<double> GetPropertyValues(int idPlan, string propertyName)
+        {
+            var result = dbContext.AgreggationDetailsCosts.Where(detalle => detalle.idPlan == idPlan).OrderBy(detalle => detalle.idMonth)
+            .Select(detalle => detalle.GetType().GetProperty(propertyName).GetValue(detalle, null)).ToList();
+
+            var resultAsDouble = result.Select(value => Convert.ToDouble(value)).ToList();
+
+            return resultAsDouble;
+        }
+
     }
 }
