@@ -108,7 +108,7 @@ namespace Aggregate_Planing.Views
         {
             this.initialMonth=initialMonth;
             this.finalMonth=finalMonth;
-      
+            this.opcCase = 2; //Means Create
             InitializeComponent();
             
         }
@@ -1023,8 +1023,16 @@ namespace Aggregate_Planing.Views
                 //Open Form To Save The Plan Name
                DialogResult result = spn.ShowDialog();
 
+                if (result == DialogResult.OK && opcCase ==1)
+                {
+                    SaveRequiredData();
+                    saveInitialTable();
+                    savePlanCostData();
 
-                if (result == DialogResult.OK)
+                    MessageBox.Show("Editado!", "Se ha editado Correctamente!");
+                }
+
+                if (result == DialogResult.OK && opcCase ==2)
                 {
                     SaveRequiredData();
                     saveInitialTable();
@@ -1032,6 +1040,7 @@ namespace Aggregate_Planing.Views
 
                     MessageBox.Show("Guardado!", "Se ha guardado Correctamente");
                 }
+               
             }
         }
 
