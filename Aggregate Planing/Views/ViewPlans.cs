@@ -84,22 +84,23 @@ namespace Aggregate_Planing.Views
 
         private void dgvPlans_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if(e.RowIndex >= 0) //Validating if the user clickes on the Data Grid View
+            PlaningGenerate planingGenerate = new PlaningGenerate();
+
+            if (e.RowIndex >= 0) //Validating if the user clickes on the Data Grid View
             {
                 if(e.ColumnIndex == dgvPlans.Columns["EditarButtonColumn"].Index)
                 {
                     caseOpc = 1; // Means Edit
                     int id = (int)dgvPlans.Rows[e.RowIndex].Cells[0].Value;
-                    PlaningGenerate planingGenerate = new PlaningGenerate();
                     planingGenerate.PlanningCase(id, caseOpc);
-                   
-                  
-
 
                 }
                 if(e.ColumnIndex == dgvPlans.Columns["VisualizarButtonColumn"].Index)
                 {
-                    int id = (int)dgvPlans.Rows[e.RowIndex].Cells["Id"].Value;
+                    caseOpc =3;
+                    int id = (int)dgvPlans.Rows[e.RowIndex].Cells[0].Value;
+                    planingGenerate.PlanningCase(id, caseOpc);
+
                 }
                 if(e.ColumnIndex == dgvPlans.Columns["EliminarButtonColumn"].Index)
                 {

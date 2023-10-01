@@ -115,24 +115,29 @@ namespace Aggregate_Planing.Views
 
        public void PlanningCase(int id, int opcCase)
         {
-            this.opcCase = opcCase; 
-            if(opcCase ==1)
+            AgreggationDetailController AGD = new AgreggationDetailController();
+
+            this.initialMonth = AGD.getInitialMonth(id)-1;
+            this.finalMonth = AGD.getLastMonth(id)-1;
+            this.IdPlan = id;
+            this.opcCase = opcCase;
+
+            this.Show();
+            chargeInitialDgvStoredData(id);
+            chargeCostDgvStoredData(id);
+            chargeRequeridedData(id);
+
+            if (opcCase ==1)
             {
                 //Logical edit here
-                AgreggationDetailController AGD = new AgreggationDetailController();
-                this.initialMonth = AGD.getInitialMonth(id)-1;
-                this.finalMonth = AGD.getLastMonth(id)-1;
-                this.IdPlan = id;
-                this.Show();
-                chargeInitialDgvStoredData(id);
-                chargeCostDgvStoredData(id);
-                chargeRequeridedData(id);
                 btnClean.Enabled = false;
             }
-            if(opcCase ==2)
+            if(opcCase ==3)
             {
                 //Logical read here
-
+               btnCalculate.Visible = false;
+               btnClean.Visible = false; 
+               bntSave.Visible = false;
             }
         }
 
