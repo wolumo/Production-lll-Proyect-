@@ -104,7 +104,23 @@ namespace Aggregate_Planing.Views
                 }
                 if(e.ColumnIndex == dgvPlans.Columns["EliminarButtonColumn"].Index)
                 {
-                    int id = (int)dgvPlans.Rows[e.RowIndex].Cells["Id"].Value;
+                    AggreggationPlanController aggreggationPlanController = new AggreggationPlanController();
+                    AgregationDetailCostController agregationDetailCostController = new AgregationDetailCostController();
+                    AgreggationDetailController agreggationDetailController = new AgreggationDetailController();
+                    int id = (int)dgvPlans.Rows[e.RowIndex].Cells[0].Value;
+                    try
+                    {
+                      
+                        agregationDetailCostController.Delete(id);
+                        agreggationDetailController.Delete(id);
+                        aggreggationPlanController.Delete(id);
+
+                        MessageBox.Show("Eliminado Correctamente!");
+                    }catch(Exception ex)
+                    {
+                        MessageBox.Show("No se ha podido eliminar, excepcion: " + ex.ToString());
+                    }
+
                 }
 
             }

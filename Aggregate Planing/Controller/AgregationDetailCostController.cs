@@ -52,6 +52,23 @@ namespace Aggregate_Planing.Controller
             }
 
         }
+
+        public void Delete(int idPlan)
+        {
+            var DataToDelete = dbContext.AgreggationDetailsCosts.Where(d => d.idPlan == idPlan).ToList();
+
+
+            if (DataToDelete.Any())
+            { 
+
+                dbContext.RemoveRange(DataToDelete);
+                dbContext.SaveChanges();
+            }
+            else
+            {
+                MessageBox.Show("No se encontraron registros en el detalle Costos para eliminar");
+            }
+        }
         
 
         public List<double> GetPropertyValues(int idPlan, string propertyName)

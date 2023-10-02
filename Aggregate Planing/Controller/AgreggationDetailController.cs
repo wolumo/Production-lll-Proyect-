@@ -92,6 +92,20 @@ namespace Aggregate_Planing.Controller
             return resultadoComoInt;
         }
 
+        public void Delete(int idPlan)
+        {
+            var DataToDelete = dBContext.AgreggationDetails.Where(d => d.idPlan == idPlan).ToList();
+
+            if (DataToDelete.Any())
+            {
+                dBContext.RemoveRange(DataToDelete);
+                dBContext.SaveChanges();
+            }
+            else
+            {
+                MessageBox.Show("No se encontraron registros en el detalle para eliminar");
+            }
+        }
 
 
     }

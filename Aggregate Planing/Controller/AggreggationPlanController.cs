@@ -57,6 +57,18 @@ namespace Aggregate_Planing.Controller
 
             }
         }
+
+        public void Delete(int idPlan)
+        {
+            AgreggationPlan agreggationPlan = dbContext.AgreggationPlans.FirstOrDefault(d => d.idPlan == idPlan);
+
+            if(agreggationPlan!= null)
+            {
+                dbContext.AgreggationPlans.Remove(agreggationPlan);
+                dbContext.SaveChanges();
+            }
+        }
+
       public List<AgreggationPlan> showPlans()
         {
             return dbContext.AgreggationPlans.ToList();
